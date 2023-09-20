@@ -5,7 +5,7 @@ class ApiUtils {
   static const String baseUrl = "https://api.themoviedb.org/";
 
   // Endpoints
-  static const String movies = "3/discover/movie";
+  static const String getMoviesEndpoint = "3/discover/movie";
 
   //Api key
   static const String apiKeyParameterKey = 'apiKey';

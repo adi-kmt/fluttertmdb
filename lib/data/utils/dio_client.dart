@@ -8,6 +8,10 @@ class ApiClient {
   ApiClient({required this.dio}) {
     dio
       ..options.baseUrl = ApiUtils.baseUrl
+      ..options.headers = <String, dynamic>{
+        "Authorization": "Bearer ${ApiUtils.bearerToken}",
+        "accept": "application/json"
+      }
       ..options.connectTimeout =
           const Duration(seconds: ApiUtils.connectionTimeout)
       ..options.receiveTimeout =
@@ -21,21 +25,11 @@ class ApiClient {
       ));
   }
 
-  Future<Response> get(
-    String url, {
-    Map<String, dynamic>? queryParameters,
-    Options? options,
-    CancelToken? cancelToken,
-    ProgressCallback? onReceiveProgress,
-  }) async {
+  Future<Response> get(String url,
+      {Map<String, dynamic>? queryParameters}) async {
     try {
-      final Response response = await dio.get(
-        url,
-        queryParameters: queryParameters,
-        options: options,
-        cancelToken: cancelToken,
-        onReceiveProgress: onReceiveProgress,
-      );
+      final Response response =
+          await dio.get(url, queryParameters: queryParameters);
       return response;
     } catch (e) {
       rethrow;

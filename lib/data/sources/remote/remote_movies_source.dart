@@ -12,9 +12,7 @@ class RemoteMoviesSource {
 
   Future<ResponseWrapper<List<MovieModel>>> getAllmovies() async {
     try {
-      final response = await apiClient.get(
-        ApiUtils.movies,
-      );
+      final response = await apiClient.get(ApiUtils.getMoviesEndpoint);
 
       if (response.statusCode == 200) {
         final newsListResponse = RemoteMovieEntity.fromJson(response.data);
@@ -25,8 +23,10 @@ class RemoteMoviesSource {
       } else {
         return Failure(
             error: APIException(
-                response.statusMessage ?? ApiUtils.genericApiErrorMessage,
-                response.statusCode ?? ApiUtils.standardServerError));
+                message:
+                    response.statusMessage ?? ApiUtils.genericApiErrorMessage,
+                statusCode:
+                    response.statusCode ?? ApiUtils.standardServerError));
       }
     } on Exception catch (e, _) {
       return Failure(error: e);
