@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 
-import 'ApiUtils.dart';
+import 'api_utils.dart';
 
 class ApiClient {
   late final Dio dio;
