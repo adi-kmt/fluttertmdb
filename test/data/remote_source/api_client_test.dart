@@ -1,13 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:fluttertmdb/data/models/wrappers/api_exception.dart';
+import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
 import 'package:fluttertmdb/data/utils/api_utils.dart';
 import 'package:fluttertmdb/data/utils/dio_client.dart';
-import 'package:mocktail/mocktail.dart';
-import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
-
-class ApiClientMock extends Mock implements ApiClient {}
 
 void main() {
   late final ApiClient apiClient;

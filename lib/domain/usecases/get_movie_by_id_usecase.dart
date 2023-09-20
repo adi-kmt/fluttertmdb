@@ -7,7 +7,7 @@ class GetMovieByIdUsecase {
 
   GetMovieByIdUsecase({required this.moviesRepository});
 
-  Future<ResponseWrapper<List<MovieModel>>> call() async {
-    return await moviesRepository.getAllMovies();
+  Future<ResponseWrapper<MovieModel>> call(int id) async {
+    return await moviesRepository.getMovieById(id);
   }
 }

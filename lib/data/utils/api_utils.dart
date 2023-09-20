@@ -8,7 +8,7 @@ class ApiUtils {
   static const String getMoviesEndpoint = "3/discover/movie";
 
   //Api key
-  static const String apiKeyParameterKey = 'apiKey';
+  static const String bearerToken = 'bearerToken';
 
   // receiveTimeout
   static const int receiveTimeout = 15000;
