@@ -1,21 +1,13 @@
-class MovieModel {
-  final String releaseDate;
-  final String title;
-  final int id;
-  final String overview;
-  final String originalLanguage;
-  final int voteCount;
-  final String posterPath;
-  final double voteAverage;
+const String moviesTable = "MoviesTable";
 
-  MovieModel({
-    required this.releaseDate,
-    required this.title,
-    required this.id,
-    required this.overview,
-    required this.originalLanguage,
-    required this.voteCount,
-    required this.posterPath,
-    required this.voteAverage,
-  });
+class MovieFields {
+  MovieFields._();
+
+  static const releaseDate = "releaseDate";
+  static const title = "title";
+  static const id = "id";
+  static const overview = "overview";
+  static const originalLanguage = "originalLanguage";
+  static const voteCount = "voteCount";
+  static const posterPath = "posterPath";
 }
