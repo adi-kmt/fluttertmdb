@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
 
-void main() {
+void main() async {
+  unawaited(get_it.init());
   runApp(const MyApp());
 }
 
