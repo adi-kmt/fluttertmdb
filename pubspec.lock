@@ -338,14 +338,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
-  http_mock_adapter:
-    dependency: "direct dev"
-    description:
-      name: http_mock_adapter
-      sha256: "07e78a5b64410ff8404aee2f8889ebff08def0c752b85a3945dec2029a6e1110"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.6.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -415,14 +407,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.1"
-  logger:
-    dependency: transitive
-    description:
-      name: logger
-      sha256: ba3bc83117b2b49bdd723c0ea7848e8285a0fbc597ba09203b20d329d020c24a
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.0.2"
   logging:
     dependency: transitive
     description:
@@ -717,7 +701,7 @@ packages:
     source: hosted
     version: "2.3.0"
   sqflite_common:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: sqflite_common
       sha256: "1b92f368f44b0dee2425bb861cfa17b6f6cf3961f762ff6f941d20b33355660a"
