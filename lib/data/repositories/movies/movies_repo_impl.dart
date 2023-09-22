@@ -32,4 +32,16 @@ class MoviesRepoImpl implements MoviesRepository {
       return remoteNewsSource.getAllmovies();
     }
   }
+
+  @override
+  Future<ResponseWrapper> addFavouriteMovie(int id) {
+    // TODO: implement Firestore for network call
+    return localMovieSource.addFavouriteMovie(id);
+  }
+
+  @override
+  Future<ResponseWrapper<List<MovieModel>>> getAllFavouriteMovies() {
+    // TODO: implement Firestore for network call
+    return localMovieSource.getFavouriteMovies();
+  }
 }

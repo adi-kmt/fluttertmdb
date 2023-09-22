@@ -1,6 +1,7 @@
 import 'package:fluttertmdb/common/response_wrapper.dart';
 import 'package:fluttertmdb/common/string_utils.dart';
 import 'package:fluttertmdb/data/models/local_movie_entity.dart';
+import 'package:fluttertmdb/data/models/local_movie_favourite_entity.dart';
 import 'package:fluttertmdb/domain/models/movie_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -38,6 +39,11 @@ class LocalMovieSource {
       ${MovieFields.posterPath} $textType
       )
       """);
+    await db.execute("""
+    CREATE TABLE $movieFavouritesTable (
+    ${MovieFavouritesFields.id} $keyType
+    )
+    """);
   }
 
   Future<bool> insertMovie(MovieModel movieModel) async {
@@ -62,8 +68,7 @@ class LocalMovieSource {
         return Failure(error: Exception("Movie not found in the db"));
       }
     } catch (e) {
-      return Failure(
-          error: Exception("Something went wrong in the local storage"));
+      return Failure(error: Exception(e));
     }
   }
 
@@ -80,8 +85,50 @@ class LocalMovieSource {
         return Failure(error: Exception("No movies found in the db"));
       }
     } catch (e) {
-      return Failure(
-          error: Exception("Something went wrong in the local storage"));
+      return Failure(error: Exception(e));
+    }
+  }
+
+  Future<ResponseWrapper> addFavouriteMovie(int id) async {
+    try {
+      final db = await database;
+      final result = await db.insert(
+              movieFavouritesTable, {MovieFavouritesFields.id: id},
+              conflictAlgorithm: ConflictAlgorithm.replace) >
+          0;
+      if (result) {
+        return Success(data: true);
+      } else {
+        return Failure(error: Exception("Insert DB doesn't work"));
+      }
+    } catch (e) {
+      return Failure(error: Exception(e));
+    }
+  }
+
+  Future<ResponseWrapper<List<MovieModel>>> getFavouriteMovies() async {
+    try {
+      final db = await database;
+      final idMapList = await db.query(movieFavouritesTable);
+      if (idMapList.isNotEmpty) {
+        final idList = idMapList
+            .map((idMap) => idMap[MovieFavouritesFields.id] as int)
+            .toList();
+        final movieMapList = await db.query(moviesTable,
+            where: '${MovieFields.id} = ?', whereArgs: idList);
+        if (movieMapList.isNotEmpty) {
+          final movieList = movieMapList
+              .map((movieMap) => MovieModel.fromJson(movieMap))
+              .toList();
+          return Success(data: movieList);
+        } else {
+          return Failure(error: Exception("Movie not found in the db"));
+        }
+      } else {
+        return Failure(error: Exception("No favourite movies found in the db"));
+      }
+    } catch (e) {
+      return Failure(error: Exception(e));
     }
   }
 

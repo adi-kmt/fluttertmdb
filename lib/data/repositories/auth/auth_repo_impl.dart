@@ -5,10 +5,6 @@ import 'package:fluttertmdb/domain/repositories/auth/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource authLocalSource;
-
-  /*
-  TODO Add flutter firebase auth here.
-   */
   AuthRepositoryImpl({required this.authLocalSource});
 
   @override
