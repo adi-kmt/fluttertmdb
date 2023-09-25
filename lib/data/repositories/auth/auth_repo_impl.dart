@@ -1,16 +1,29 @@
 import 'package:fluttertmdb/common/response_wrapper.dart';
 import 'package:fluttertmdb/data/sources/local/auth_local_source.dart';
+import 'package:fluttertmdb/data/sources/remote/firebase_auth_source.dart';
 import 'package:fluttertmdb/domain/models/user_model.dart';
 import 'package:fluttertmdb/domain/repositories/auth/auth_repository.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource authLocalSource;
-  AuthRepositoryImpl({required this.authLocalSource});
+  final FirebaseAuthSource firebaseAuthSource;
+
+  AuthRepositoryImpl(
+      {required this.authLocalSource, required this.firebaseAuthSource});
 
   @override
-  Future<ResponseWrapper> clearLoggedInUser() {
-    // TODO: add firebase logout here
-    return authLocalSource.clearLoggedInUser();
+  Future<ResponseWrapper> clearLoggedInUser() async {
+    final result = await firebaseAuthSource.logout();
+    if (result is Success) {
+      final isSuccess = authLocalSource.clearLoggedInUser();
+      if (isSuccess is Success) {
+        return Success(data: true);
+      } else {
+        return Failure(error: Exception("Logout failed"));
+      }
+    } else {
+      return Failure(error: Exception("Logout failed"));
+    }
   }
 
   @override
@@ -19,8 +32,17 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<ResponseWrapper> setLoggedInUser(UserModel userModel) {
-    // TODO: add firebase login here
-    return authLocalSource.setLoggedInUser(userModel);
+  Future<ResponseWrapper> setLoggedInUser(UserModel user) async {
+    final result = await firebaseAuthSource.login(user);
+    if (result is Success) {
+      final isSuccess = authLocalSource.setLoggedInUser(user);
+      if (isSuccess is Success) {
+        return Success(data: true);
+      } else {
+        return Failure(error: Exception("Login failed"));
+      }
+    } else {
+      return Failure(error: Exception("Login failed"));
+    }
   }
 }
