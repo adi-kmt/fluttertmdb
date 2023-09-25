@@ -7,4 +7,6 @@ abstract class MoviesRepository {
   Future<ResponseWrapper> addFavouriteMovie(int id);
 
   Future<ResponseWrapper<List<MovieModel>>> getAllFavouriteMovies();
+
+  Future<ResponseWrapper> deleteFavouriteMovie(String id);
 }

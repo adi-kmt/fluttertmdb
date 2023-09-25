@@ -1,7 +1,9 @@
+import 'dart:collection';
+
 import 'package:fluttertmdb/common/response_wrapper.dart';
-import 'package:fluttertmdb/common/string_utils.dart';
 import 'package:fluttertmdb/data/models/local_movie_entity.dart';
 import 'package:fluttertmdb/data/models/local_movie_favourite_entity.dart';
+import 'package:fluttertmdb/data/utils/local_source_utils.dart';
 import 'package:fluttertmdb/domain/models/movie_model.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
@@ -13,7 +15,7 @@ class LocalMovieSource {
 
   Future<Database> get database async {
     if (_database != null) return _database!;
-    _database = await _initDB(StringUtils.dbName);
+    _database = await _initDB(LocalSourceUtils.dbName);
     return _database!;
   }
 
@@ -41,7 +43,8 @@ class LocalMovieSource {
       """);
     await db.execute("""
     CREATE TABLE $movieFavouritesTable (
-    ${MovieFavouritesFields.id} $keyType
+    ${MovieFavouritesFields.id} $keyType,
+    ${MovieFavouritesFields.docId} $textType
     )
     """);
   }
@@ -89,11 +92,15 @@ class LocalMovieSource {
     }
   }
 
-  Future<ResponseWrapper> addFavouriteMovie(int id) async {
+  Future<ResponseWrapper> addFavouriteMovie(Map<String, int> map) async {
     try {
       final db = await database;
       final result = await db.insert(
-              movieFavouritesTable, {MovieFavouritesFields.id: id},
+              movieFavouritesTable,
+              {
+                MovieFavouritesFields.id: map["id"],
+                MovieFavouritesFields.docId: map["docId"]
+              },
               conflictAlgorithm: ConflictAlgorithm.replace) >
           0;
       if (result) {
@@ -127,6 +134,18 @@ class LocalMovieSource {
       } else {
         return Failure(error: Exception("No favourite movies found in the db"));
       }
+    } catch (e) {
+      return Failure(error: Exception(e));
+    }
+  }
+
+  Future<ResponseWrapper> deleteFavouriteMovie(int id) async {
+    try {
+      final db = await database;
+      final dbResult = db.delete(movieFavouritesTable,
+          where: '$MovieFields.id = ?', whereArgs: [id]);
+      //TODO check conditions
+      return Success(data: null);
     } catch (e) {
       return Failure(error: Exception(e));
     }

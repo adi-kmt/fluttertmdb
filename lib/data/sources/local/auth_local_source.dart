@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:fluttertmdb/common/response_wrapper.dart';
-import 'package:fluttertmdb/common/string_utils.dart';
+import 'package:fluttertmdb/data/utils/local_source_utils.dart';
 import 'package:fluttertmdb/domain/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,7 +28,7 @@ class AuthLocalSource {
     try {
       sharedPreferences = await SharedPreferences.getInstance();
       bool isSuccessful = await sharedPreferences.setString(
-          StringUtils.userSharedPrefsKey, json.encode(userModel));
+          LocalSourceUtils.userSharedPrefsKey, json.encode(userModel));
       if (isSuccessful) {
         return Success(data: null);
       } else {
@@ -43,7 +43,7 @@ class AuthLocalSource {
     try {
       sharedPreferences = await SharedPreferences.getInstance();
       String? jsonUser =
-          sharedPreferences.getString(StringUtils.userSharedPrefsKey);
+          sharedPreferences.getString(LocalSourceUtils.userSharedPrefsKey);
       if (jsonUser != null) {
         UserModel userModel = json.decode(jsonUser);
         return Success(data: userModel);

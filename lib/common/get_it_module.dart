@@ -3,6 +3,7 @@ import 'package:fluttertmdb/data/repositories/auth/auth_repo_impl.dart';
 import 'package:fluttertmdb/data/repositories/movies/movies_repo_impl.dart';
 import 'package:fluttertmdb/data/sources/local/auth_local_source.dart';
 import 'package:fluttertmdb/data/sources/local/movie_local_source.dart';
+import 'package:fluttertmdb/data/sources/remote/firebase_auth_source.dart';
 import 'package:fluttertmdb/data/sources/remote/remote_movies_source.dart';
 import 'package:fluttertmdb/data/utils/dio_client.dart';
 import 'package:fluttertmdb/domain/repositories/auth/auth_repository.dart';
@@ -36,9 +37,11 @@ Future init() async {
       () => GetFavouriteMoviesUseCase(moviesRepository: getItInstance()));
 
   // Users Module
+  getItInstance
+      .registerLazySingleton<FirebaseAuthSource>(() => FirebaseAuthSource());
   getItInstance.registerLazySingleton<AuthLocalSource>(() => AuthLocalSource());
-  getItInstance.registerLazySingleton<AuthRepository>(
-      () => AuthRepositoryImpl(authLocalSource: getItInstance()));
+  getItInstance.registerLazySingleton<AuthRepository>(() => AuthRepositoryImpl(
+      authLocalSource: getItInstance(), firebaseAuthSource: getItInstance()));
   getItInstance.registerLazySingleton<GetCurrentUserUsecase>(
       () => GetCurrentUserUsecase(authRepository: getItInstance()));
   getItInstance.registerLazySingleton<LoginUserUsecase>(

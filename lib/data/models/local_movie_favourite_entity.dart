@@ -4,4 +4,5 @@ class MovieFavouritesFields {
   MovieFavouritesFields._();
 
   static const id = "id";
+  static const docId = "docId";
 }
