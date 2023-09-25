@@ -1,3 +1,4 @@
+import 'package:fluttertmdb/data/models/local_movie_entity.dart';
 import 'package:fluttertmdb/data/models/remote_movie_entity.dart';
 
 class MovieModel {
@@ -8,29 +9,43 @@ class MovieModel {
   final String originalLanguage;
   final int voteCount;
   final String posterPath;
-  final double voteAverage;
 
-  MovieModel({
-    required this.releaseDate,
-    required this.title,
-    required this.id,
-    required this.overview,
-    required this.originalLanguage,
-    required this.voteCount,
-    required this.posterPath,
-    required this.voteAverage,
-  });
+  MovieModel(
+      {required this.releaseDate,
+      required this.title,
+      required this.id,
+      required this.overview,
+      required this.originalLanguage,
+      required this.voteCount,
+      required this.posterPath});
+
+  factory MovieModel.fromJson(Map<String, dynamic> json) => MovieModel(
+      releaseDate: json[MovieFields.releaseDate],
+      title: json[MovieFields.title],
+      id: json[MovieFields.id] as int,
+      overview: json[MovieFields.overview],
+      originalLanguage: json[MovieFields.originalLanguage],
+      voteCount: json[MovieFields.voteCount],
+      posterPath: json[MovieFields.posterPath]);
+
+  Map<String, dynamic> toJson() => {
+        MovieFields.releaseDate: releaseDate,
+        MovieFields.title: title,
+        MovieFields.id: id as String,
+        MovieFields.overview: overview,
+        MovieFields.originalLanguage: originalLanguage,
+        MovieFields.voteCount: voteCount as String,
+        MovieFields.posterPath: posterPath
+      };
 }
 
 extension RemoteMovieEntityExtension on RemoteMovieResults {
   MovieModel get getMovieModel => MovieModel(
-        releaseDate: this.releaseDate ?? "",
-        title: this.title ?? "",
-        id: this.id ?? 0,
-        overview: this.overview ?? "",
-        originalLanguage: this.originalLanguage ?? "",
-        voteCount: this.voteCount ?? 0,
-        posterPath: this.posterPath ?? "",
-        voteAverage: this.voteAverage ?? 0,
-      );
+      releaseDate: this.releaseDate ?? "",
+      title: this.title ?? "",
+      id: this.id ?? 0,
+      overview: this.overview ?? "",
+      originalLanguage: this.originalLanguage ?? "",
+      voteCount: this.voteCount ?? 0,
+      posterPath: this.posterPath ?? "");
 }

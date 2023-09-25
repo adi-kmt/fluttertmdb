@@ -15,11 +15,14 @@ class RemoteMoviesSource {
       final response = await apiClient.get(ApiUtils.getMoviesEndpoint);
 
       if (response.statusCode == 200) {
-        final newsListResponse = RemoteMovieEntity.fromJson(response.data);
-        return Success(
-            data: newsListResponse.results
-                ?.map((movie) => movie.getMovieModel)
-                .toList());
+        final moviesListResponse = RemoteMovieEntity.fromJson(response.data);
+        if (moviesListResponse.results != null) {
+          //TODO fix this bang operator
+          final results = moviesListResponse.results!;
+          return Success(
+              data: results.map((movie) => movie.getMovieModel).toList());
+        }
+        return Failure(error: Exception("Movies Result list is null"));
       } else {
         return Failure(
             error: APIException(
