@@ -28,7 +28,9 @@ Future init() async {
   getItInstance
       .registerLazySingleton<LocalMovieSource>(() => LocalMovieSource());
   getItInstance.registerLazySingleton<MoviesRepository>(() => MoviesRepoImpl(
-      remoteNewsSource: getItInstance(), localMovieSource: getItInstance()));
+      remoteNewsSource: getItInstance(),
+      localMovieSource: getItInstance(),
+      firestoreSource: getItInstance()));
   getItInstance.registerLazySingleton<GetAllMoviesUseCase>(
       () => GetAllMoviesUseCase(moviesRepository: getItInstance()));
   getItInstance.registerLazySingleton<AddFavouriteMovieUsecase>(

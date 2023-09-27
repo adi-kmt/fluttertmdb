@@ -30,7 +30,7 @@ class MoviesRepoImpl implements MoviesRepository {
         // present in the local storage.
         return localMovieSource.getAllMovies();
       } catch (e) {
-        return Failure(error: Exception(e));
+        return Failure(Exception(e));
       }
     } else {
       return networkResponse;

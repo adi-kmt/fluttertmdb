@@ -15,12 +15,12 @@ class AuthLocalSource {
       sharedPreferences = await SharedPreferences.getInstance();
       bool isSuccessful = await sharedPreferences.clear();
       if (isSuccessful) {
-        return Success(data: null);
+        return Success(null);
       } else {
-        return Failure(error: Exception("Shared preferences didn't work"));
+        return Failure(Exception("Shared preferences didn't work"));
       }
     } catch (e) {
-      return Failure(error: Exception(e.toString()));
+      return Failure(Exception(e.toString()));
     }
   }
 
@@ -30,12 +30,12 @@ class AuthLocalSource {
       bool isSuccessful = await sharedPreferences.setString(
           LocalSourceUtils.userSharedPrefsKey, json.encode(userModel));
       if (isSuccessful) {
-        return Success(data: null);
+        return Success(null);
       } else {
-        return Failure(error: Exception("Shared preferences didn't work"));
+        return Failure(Exception("Shared preferences didn't work"));
       }
     } catch (e) {
-      return Failure(error: Exception(e.toString()));
+      return Failure(Exception(e.toString()));
     }
   }
 
@@ -46,12 +46,12 @@ class AuthLocalSource {
           sharedPreferences.getString(LocalSourceUtils.userSharedPrefsKey);
       if (jsonUser != null) {
         UserModel userModel = json.decode(jsonUser);
-        return Success(data: userModel);
+        return Success(userModel);
       } else {
-        return Failure(error: Exception("Shared preferences didn't work"));
+        return Failure(Exception("Shared preferences didn't work"));
       }
     } catch (e) {
-      return Failure(error: Exception(e.toString()));
+      return Failure(Exception(e.toString()));
     }
   }
 }

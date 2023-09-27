@@ -17,12 +17,12 @@ class AuthRepositoryImpl implements AuthRepository {
     if (result is Success) {
       final isSuccess = authLocalSource.clearLoggedInUser();
       if (isSuccess is Success) {
-        return Success(data: true);
+        return Success(true);
       } else {
-        return Failure(error: Exception("Logout failed"));
+        return Failure(Exception("Logout failed"));
       }
     } else {
-      return Failure(error: Exception("Logout failed"));
+      return Failure(Exception("Logout failed"));
     }
   }
 
@@ -37,12 +37,12 @@ class AuthRepositoryImpl implements AuthRepository {
     if (result is Success) {
       final isSuccess = authLocalSource.setLoggedInUser(user);
       if (isSuccess is Success) {
-        return Success(data: true);
+        return Success(null);
       } else {
-        return Failure(error: Exception("Login failed"));
+        return Failure(Exception("Login failed"));
       }
     } else {
-      return Failure(error: Exception("Login failed"));
+      return Failure(Exception("Login failed"));
     }
   }
 }

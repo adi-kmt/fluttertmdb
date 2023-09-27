@@ -10,7 +10,7 @@ class FirebaseFirestoreSource {
         .collection(LocalSourceUtils.firebaseCollectionsName);
     final docId = collection.doc().id;
     await collection.add({"id": id});
-    return Success(data: docId);
+    return Success(docId);
   }
 
   Future<ResponseWrapper<List<int>>> getAllLikedMovies() async {
@@ -18,8 +18,8 @@ class FirebaseFirestoreSource {
         .collection(LocalSourceUtils.firebaseCollectionsName)
         .get()
         .then((value) => value.docs.map((e) => e.data()["id"] as int).toList(),
-            onError: (e) => Failure(error: e));
-    return Success(data: moviesList);
+            onError: (e) => Failure(e));
+    return Success(moviesList);
   }
 
   Future<ResponseWrapper> deleteFavouriteMovie(String docId) async {
@@ -27,7 +27,6 @@ class FirebaseFirestoreSource {
         .collection(LocalSourceUtils.firebaseCollectionsName)
         .doc(docId)
         .delete()
-        .then((value) => Success(data: null),
-            onError: (e) => Failure(error: Exception(e)));
+        .then((value) => Success(null), onError: (e) => Failure(Exception(e)));
   }
 }

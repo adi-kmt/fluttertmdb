@@ -1,13 +1,10 @@
-abstract class ResponseWrapper<T> {}
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class Success<T> extends ResponseWrapper<T> {
-  T data;
+part '../generated/response_wrapper.freezed.dart';
 
-  Success({required this.data});
-}
+@freezed
+sealed class ResponseWrapper<T> with _$ResponseWrapper {
+  const factory ResponseWrapper.Success(T data) = Success;
 
-class Failure<T> extends ResponseWrapper<T> {
-  Exception error;
-
-  Failure({required this.error});
+  const factory ResponseWrapper.Failure(Exception exception) = Failure;
 }

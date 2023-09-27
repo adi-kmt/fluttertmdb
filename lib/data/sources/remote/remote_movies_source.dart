@@ -17,22 +17,17 @@ class RemoteMoviesSource {
       if (response.statusCode == 200) {
         final moviesListResponse = RemoteMovieEntity.fromJson(response.data);
         if (moviesListResponse.results != null) {
-          //TODO fix this bang operator
-          final results = moviesListResponse.results!;
-          return Success(
-              data: results.map((movie) => movie.getMovieModel).toList());
+          final results = moviesListResponse.results ?? List.empty();
+          return Success(results.map((movie) => movie.getMovieModel).toList());
         }
-        return Failure(error: Exception("Movies Result list is null"));
+        return Failure(Exception("Movies Result list is null"));
       } else {
-        return Failure(
-            error: APIException(
-                message:
-                    response.statusMessage ?? ApiUtils.genericApiErrorMessage,
-                statusCode:
-                    response.statusCode ?? ApiUtils.standardServerError));
+        return Failure(APIException(
+            message: response.statusMessage ?? ApiUtils.genericApiErrorMessage,
+            statusCode: response.statusCode ?? ApiUtils.standardServerError));
       }
     } on Exception catch (e, _) {
-      return Failure(error: e);
+      return Failure(e);
     }
   }
 }

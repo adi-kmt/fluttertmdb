@@ -98,7 +98,7 @@ void main() {
     remoteMoviesSource = RemoteMoviesSource(apiClient: apiClient);
     final response = await remoteMoviesSource.getAllmovies();
     expect(response, isA<Failure>());
-    final exception = (response as Failure).error as APIException;
+    final exception = (response as Failure).exception as APIException;
     expect(exception.statusCode, 500);
   });
 

@@ -66,12 +66,12 @@ class LocalMovieSource {
       final movieMap = await db
           .query(moviesTable, where: '${MovieFields.id} = ?', whereArgs: [id]);
       if (movieMap.isNotEmpty && movieMap.firstOrNull != null) {
-        return Success(data: MovieModel.fromJson(movieMap.first));
+        return Success(MovieModel.fromJson(movieMap.first));
       } else {
-        return Failure(error: Exception("Movie not found in the db"));
+        return Failure(Exception("Movie not found in the db"));
       }
     } catch (e) {
-      return Failure(error: Exception(e));
+      return Failure(Exception(e));
     }
   }
 
@@ -83,12 +83,12 @@ class LocalMovieSource {
         final movieList = movieMapList
             .map((movieMap) => MovieModel.fromJson(movieMap))
             .toList();
-        return Success(data: movieList);
+        return Success(movieList);
       } else {
-        return Failure(error: Exception("No movies found in the db"));
+        return Failure(Exception("No movies found in the db"));
       }
     } catch (e) {
-      return Failure(error: Exception(e));
+      return Failure(Exception(e));
     }
   }
 
@@ -104,12 +104,12 @@ class LocalMovieSource {
               conflictAlgorithm: ConflictAlgorithm.replace) >
           0;
       if (result) {
-        return Success(data: true);
+        return Success(true);
       } else {
-        return Failure(error: Exception("Insert DB doesn't work"));
+        return Failure(Exception("Insert DB doesn't work"));
       }
     } catch (e) {
-      return Failure(error: Exception(e));
+      return Failure(Exception(e));
     }
   }
 
@@ -127,15 +127,15 @@ class LocalMovieSource {
           final movieList = movieMapList
               .map((movieMap) => MovieModel.fromJson(movieMap))
               .toList();
-          return Success(data: movieList);
+          return Success(movieList);
         } else {
-          return Failure(error: Exception("Movie not found in the db"));
+          return Failure(Exception("Movie not found in the db"));
         }
       } else {
-        return Failure(error: Exception("No favourite movies found in the db"));
+        return Failure(Exception("No favourite movies found in the db"));
       }
     } catch (e) {
-      return Failure(error: Exception(e));
+      return Failure(Exception(e));
     }
   }
 
@@ -145,9 +145,9 @@ class LocalMovieSource {
       final dbResult = db.delete(movieFavouritesTable,
           where: '$MovieFields.id = ?', whereArgs: [id]);
       //TODO check conditions
-      return Success(data: null);
+      return Success(null);
     } catch (e) {
-      return Failure(error: Exception(e));
+      return Failure(Exception(e));
     }
   }
 
