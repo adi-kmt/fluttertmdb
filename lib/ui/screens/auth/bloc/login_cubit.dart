@@ -10,6 +10,7 @@ class LoginCubit extends Cubit<UIState> {
   LoginCubit({required this.loginUsecase}) : super(const UIState.initial());
 
   void login(String email, String password) async {
+    emit(const UIState.loading());
     handleResponse(
         await loginUsecase.call(UserModel(email: email, password: password)));
   }

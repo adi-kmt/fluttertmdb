@@ -1,4 +1,5 @@
 import 'package:fluttertmdb/ui/screens/auth/auth_screen.dart';
+import 'package:fluttertmdb/ui/screens/movie_details/movie_details.screen.dart';
 import 'package:fluttertmdb/ui/screens/movie_favourite/movie_favourite_screen.dart';
 import 'package:fluttertmdb/ui/screens/movie_list/movies_list_screen.dart';
 import 'package:fluttertmdb/ui/screens/on_boarding/onboarding_screen.dart';
@@ -7,6 +8,7 @@ import 'package:go_router/go_router.dart';
 
 const authRoute = "/auth";
 const moviesListRoute = "/movies";
+const movieDetailsRoute = "/details";
 const moviesFavouriteRoute = "/favourite";
 const settingsRoute = "/settings";
 const onboardingRoute = "/";
@@ -33,6 +35,10 @@ GoRoute getMoviesFavouriteRoute() => GoRoute(
 GoRoute getMoviesListRoute() => GoRoute(
     path: moviesListRoute,
     builder: (context, state) => const MoviesListScreen());
+
+GoRoute getMovieDetailsRoute() => GoRoute(
+    path: movieDetailsRoute,
+    builder: (context, state) => const MovieDetailsScreen());
 
 GoRoute getSettingsRoute() => GoRoute(
     path: settingsRoute, builder: (context, state) => const SettingsScreen());

@@ -40,10 +40,6 @@ class _FakeAuthRepository_0 extends _i1.SmartFake
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockLoginUserUsecase extends _i1.Mock implements _i3.LoginUserUsecase {
-  MockLoginUserUsecase() {
-    _i1.throwOnMissingStub(this);
-  }
-
   @override
   _i2.AuthRepository get authRepository => (super.noSuchMethod(
         Invocation.getter(#authRepository),
@@ -51,8 +47,11 @@ class MockLoginUserUsecase extends _i1.Mock implements _i3.LoginUserUsecase {
           this,
           Invocation.getter(#authRepository),
         ),
+        returnValueForMissingStub: _FakeAuthRepository_0(
+          this,
+          Invocation.getter(#authRepository),
+        ),
       ) as _i2.AuthRepository);
-
   @override
   _i4.Future<_i5.ResponseWrapper<dynamic>> call(_i6.UserModel? userModel) =>
       (super.noSuchMethod(
@@ -62,6 +61,15 @@ class MockLoginUserUsecase extends _i1.Mock implements _i3.LoginUserUsecase {
         ),
         returnValue: _i4.Future<_i5.ResponseWrapper<dynamic>>.value(
             _i7.dummyValue<_i5.ResponseWrapper<dynamic>>(
+          this,
+          Invocation.method(
+            #call,
+            [userModel],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i4.Future<_i5.ResponseWrapper<dynamic>>.value(
+                _i7.dummyValue<_i5.ResponseWrapper<dynamic>>(
           this,
           Invocation.method(
             #call,

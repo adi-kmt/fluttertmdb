@@ -37,7 +37,7 @@ class AuthRepositoryImpl implements AuthRepository {
     if (result is Success) {
       final isSuccess = authLocalSource.setLoggedInUser(user);
       if (isSuccess is Success) {
-        return Success(null);
+        return const Success(null);
       } else {
         return Failure(Exception("Login failed"));
       }
