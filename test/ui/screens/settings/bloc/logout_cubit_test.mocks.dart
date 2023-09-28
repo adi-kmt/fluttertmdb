@@ -51,7 +51,6 @@ class MockLogoutUserUsecase extends _i1.Mock implements _i3.LogoutUserUsecase {
           Invocation.getter(#authRepository),
         ),
       ) as _i2.AuthRepository);
-
   @override
   _i4.Future<_i5.ResponseWrapper<dynamic>> call() => (super.noSuchMethod(
         Invocation.method(
