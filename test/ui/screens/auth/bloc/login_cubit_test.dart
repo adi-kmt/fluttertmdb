@@ -19,15 +19,15 @@ void main() {
   setUpAll(() {
     loginUserUsecase = MockLoginUserUsecase();
     loginCubit = LoginCubit(loginUsecase: loginUserUsecase);
-    provideDummy(const ResponseWrapper<dynamic>.Success(true));
   });
 
   test("Check initial state", () {
-    expect(loginCubit.state, UIState.initial());
+    expect(loginCubit.state, isA<Initial>());
   });
 
   blocTest("Check success",
       setUp: () async {
+        provideDummy(const ResponseWrapper<dynamic>.Success(true));
         when(loginUserUsecase
                 .call(UserModel(email: "email", password: "password")))
             .thenAnswer(
@@ -35,16 +35,19 @@ void main() {
       },
       build: () => loginCubit,
       act: (cubit) => cubit.login("email", "password"),
-      expect: () => <UIState>[UIState.loading(), UIState.success(true)]);
+      expect: () => <Matcher>[isA<Loading>(), isA<Sucess>()]);
 
   blocTest("Check failure",
       setUp: () async {
+        provideDummy(const ResponseWrapper<dynamic>.Success(true));
+        provideDummy(
+            ResponseWrapper.Failure(Exception("Something went wrong")));
         when(loginUserUsecase
                 .call(UserModel(email: "email", password: "password")))
-            .thenAnswer(
-                (invocation) async => const ResponseWrapper.Success(true));
+            .thenAnswer((invocation) async =>
+                ResponseWrapper.Failure(Exception("Something went wrong")));
       },
       build: () => loginCubit,
       act: (cubit) => cubit.login("email", "password"),
-      expect: () => <UIState>[UIState.loading(), UIState.success(true)]);
+      expect: () => <Matcher>[isA<Loading>(), isA<UiFailure>()]);
 }
