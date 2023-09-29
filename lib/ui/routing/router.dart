@@ -34,7 +34,7 @@ GoRoute getMoviesFavouriteRoute() => GoRoute(
 
 GoRoute getMoviesListRoute() => GoRoute(
     path: moviesListRoute,
-    builder: (context, state) => const MoviesListScreen());
+    builder: (context, state) => const MovieListScreen());
 
 GoRoute getMovieDetailsRoute() => GoRoute(
     path: movieDetailsRoute,
