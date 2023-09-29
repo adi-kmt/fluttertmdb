@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertmdb/ui/routing/router.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -36,6 +38,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
               borderRadius: BorderRadius.only(
                   bottomLeft: Radius.circular(8),
                   bottomRight: Radius.circular(8))),
+          child: Image.asset("assets/images/onboarding.svg"),
         ),
         LinearProgressIndicator(
           value: _progress,
@@ -43,14 +46,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
         ),
         Text(
           titles[_index],
-          style: TextStyle(fontSize: 10),
+          style: const TextStyle(fontSize: 10),
         ),
-        Text(description[_index], style: TextStyle(fontSize: 10)),
+        Text(description[_index], style: const TextStyle(fontSize: 10)),
         Visibility(
           visible: _index != 2,
           replacement: ElevatedButton(
-              onPressed: () {},
-              child: Row(mainAxisSize: MainAxisSize.min, children: [
+              onPressed: () {
+                context.goNamed(authRoute);
+              },
+              child: const Row(mainAxisSize: MainAxisSize.min, children: [
                 Icon(Icons.arrow_forward_outlined),
                 Text("Login")
               ])),
@@ -61,9 +66,9 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                       _index++;
                     })
                   },
-              child: Padding(
+              child: const Padding(
                   padding: EdgeInsets.all(20),
-                  child: const Icon(Icons.navigate_next))),
+                  child: Icon(Icons.navigate_next))),
         )
       ],
     );

@@ -13,7 +13,7 @@ const moviesFavouriteRoute = "/favourite";
 const settingsRoute = "/settings";
 const onboardingRoute = "/";
 
-final tmdbRoutes = GoRouter(routes: [
+final tmdbRoutes = GoRouter(routes: <RouteBase>[
   getOnboardingRoute(),
   getAuthRoute(),
   getMoviesFavouriteRoute(),
@@ -23,22 +23,30 @@ final tmdbRoutes = GoRouter(routes: [
 
 GoRoute getOnboardingRoute() => GoRoute(
     path: onboardingRoute,
+    name: onboardingRoute,
     builder: (context, state) => const OnboardingScreen());
 
-GoRoute getAuthRoute() =>
-    GoRoute(path: authRoute, builder: (context, state) => const AuthScreen());
+GoRoute getAuthRoute() => GoRoute(
+    path: authRoute,
+    name: authRoute,
+    builder: (context, state) => const AuthScreen());
 
 GoRoute getMoviesFavouriteRoute() => GoRoute(
     path: moviesFavouriteRoute,
+    name: moviesFavouriteRoute,
     builder: (context, state) => const MovieFavouriteScreen());
 
 GoRoute getMoviesListRoute() => GoRoute(
     path: moviesListRoute,
+    name: moviesListRoute,
     builder: (context, state) => const MovieListScreen());
 
 GoRoute getMovieDetailsRoute() => GoRoute(
     path: movieDetailsRoute,
+    name: movieDetailsRoute,
     builder: (context, state) => const MovieDetailsScreen());
 
 GoRoute getSettingsRoute() => GoRoute(
-    path: settingsRoute, builder: (context, state) => const SettingsScreen());
+    path: settingsRoute,
+    name: settingsRoute,
+    builder: (context, state) => const SettingsScreen());

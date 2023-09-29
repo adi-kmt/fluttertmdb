@@ -53,7 +53,6 @@ class MockGetAllMoviesUseCase extends _i1.Mock
           Invocation.getter(#moviesRepository),
         ),
       ) as _i2.MoviesRepository);
-
   @override
   _i4.Future<_i5.ResponseWrapper<List<_i6.MovieModel>>> call() =>
       (super.noSuchMethod(
@@ -92,49 +91,42 @@ class MockMovieModel extends _i1.Mock implements _i6.MovieModel {
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-
   @override
   String get title => (super.noSuchMethod(
         Invocation.getter(#title),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-
   @override
   int get id => (super.noSuchMethod(
         Invocation.getter(#id),
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
-
   @override
   String get overview => (super.noSuchMethod(
         Invocation.getter(#overview),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-
   @override
   String get originalLanguage => (super.noSuchMethod(
         Invocation.getter(#originalLanguage),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-
   @override
   int get voteCount => (super.noSuchMethod(
         Invocation.getter(#voteCount),
         returnValue: 0,
         returnValueForMissingStub: 0,
       ) as int);
-
   @override
   String get posterPath => (super.noSuchMethod(
         Invocation.getter(#posterPath),
         returnValue: '',
         returnValueForMissingStub: '',
       ) as String);
-
   @override
   Map<String, dynamic> toJson() => (super.noSuchMethod(
         Invocation.method(

@@ -34,52 +34,54 @@ class _MovieListScreenState extends State<MovieListScreen> {
   @override
   Widget build(BuildContext context) {
     final reversedMoviesList = movies.reversed.toList();
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarBrightness: Brightness.dark,
-      ),
-      child: Stack(
-        alignment: Alignment.center,
-        children: <Widget>[
-          Stack(
-            children: reversedMoviesList.map((movie) {
-              return ImageSlider(
-                pageValue: pageValue,
-                image: movie.posterPath,
-                index: movie.id - 1,
-              );
-            }).toList(),
-          ),
-          AnimatedPages(
-            pageValue: pageValue,
-            pageController: _pageController,
-            pageCount: movies.length,
-            pageChangeCallback: (index) {
-              setState(() {
-                currentIndex = index;
-              });
-            },
-            child: (index, _) => Padding(
-              padding: const EdgeInsets.symmetric(vertical: 150.0),
-              child: Stack(alignment: Alignment.topCenter, children: [
-                ArtistCard(movies[index], index),
-                Positioned(
-                  bottom: 200,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(movies[index].title,
-                        style: TextStyle(fontSize: 15)),
-                  ),
-                ),
-                Positioned(
-                    bottom: 150,
-                    child: Text(movies[index].overview,
-                        style: TextStyle(fontSize: 15)))
-              ]),
+    return Scaffold(
+      body: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarBrightness: Brightness.dark,
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: <Widget>[
+            Stack(
+              children: reversedMoviesList.map((movie) {
+                return ImageSlider(
+                  pageValue: pageValue,
+                  image: movie.posterPath,
+                  index: movie.id - 1,
+                );
+              }).toList(),
             ),
-          ),
-          const Positioned(top: 50, child: Text("Trending"))
-        ],
+            AnimatedPages(
+              pageValue: pageValue,
+              pageController: _pageController,
+              pageCount: movies.length,
+              pageChangeCallback: (index) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+              child: (index, _) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 150.0),
+                child: Stack(alignment: Alignment.topCenter, children: [
+                  ArtistCard(movies[index], index),
+                  Positioned(
+                    bottom: 200,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(movies[index].title,
+                          style: TextStyle(fontSize: 15)),
+                    ),
+                  ),
+                  Positioned(
+                      bottom: 150,
+                      child: Text(movies[index].overview,
+                          style: TextStyle(fontSize: 15)))
+                ]),
+              ),
+            ),
+            const Positioned(top: 50, child: Text("Trending"))
+          ],
+        ),
       ),
     );
   }

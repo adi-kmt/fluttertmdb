@@ -53,7 +53,6 @@ class MockGetFavouriteMoviesUseCase extends _i1.Mock
           Invocation.getter(#moviesRepository),
         ),
       ) as _i2.MoviesRepository);
-
   @override
   _i4.Future<_i5.ResponseWrapper<List<_i6.MovieModel>>> call() =>
       (super.noSuchMethod(

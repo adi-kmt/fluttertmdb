@@ -48,7 +48,6 @@ class MockMoviesRepository extends _i1.Mock implements _i2.MoviesRepository {
           ),
         )),
       ) as _i3.Future<_i4.ResponseWrapper<List<_i5.MovieModel>>>);
-
   @override
   _i3.Future<_i4.ResponseWrapper<dynamic>> addFavouriteMovie(int? id) =>
       (super.noSuchMethod(
@@ -65,7 +64,6 @@ class MockMoviesRepository extends _i1.Mock implements _i2.MoviesRepository {
           ),
         )),
       ) as _i3.Future<_i4.ResponseWrapper<dynamic>>);
-
   @override
   _i3.Future<_i4.ResponseWrapper<List<_i5.MovieModel>>>
       getAllFavouriteMovies() => (super.noSuchMethod(
@@ -83,7 +81,6 @@ class MockMoviesRepository extends _i1.Mock implements _i2.MoviesRepository {
               ),
             )),
           ) as _i3.Future<_i4.ResponseWrapper<List<_i5.MovieModel>>>);
-
   @override
   _i3.Future<_i4.ResponseWrapper<dynamic>> deleteFavouriteMovie(String? id) =>
       (super.noSuchMethod(
@@ -115,43 +112,36 @@ class MockMovieModel extends _i1.Mock implements _i5.MovieModel {
         Invocation.getter(#releaseDate),
         returnValue: '',
       ) as String);
-
   @override
   String get title => (super.noSuchMethod(
         Invocation.getter(#title),
         returnValue: '',
       ) as String);
-
   @override
   int get id => (super.noSuchMethod(
         Invocation.getter(#id),
         returnValue: 0,
       ) as int);
-
   @override
   String get overview => (super.noSuchMethod(
         Invocation.getter(#overview),
         returnValue: '',
       ) as String);
-
   @override
   String get originalLanguage => (super.noSuchMethod(
         Invocation.getter(#originalLanguage),
         returnValue: '',
       ) as String);
-
   @override
   int get voteCount => (super.noSuchMethod(
         Invocation.getter(#voteCount),
         returnValue: 0,
       ) as int);
-
   @override
   String get posterPath => (super.noSuchMethod(
         Invocation.getter(#posterPath),
         returnValue: '',
       ) as String);
-
   @override
   Map<String, dynamic> toJson() => (super.noSuchMethod(
         Invocation.method(
