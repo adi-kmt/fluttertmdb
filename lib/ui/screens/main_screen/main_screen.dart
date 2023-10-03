@@ -15,6 +15,7 @@ class MainScreen extends StatelessWidget {
       create: (context) => BottombarCubit(),
       child: Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           title: const Text('Main Screen'),
           actions: [
             IconButton(
@@ -25,8 +26,7 @@ class MainScreen extends StatelessWidget {
         ),
         body: BlocBuilder<BottombarCubit, int>(
           builder: (context, index) {
-            index == 0 ? MovieListScreen() : MovieFavouriteScreen();
-            return const SnackBar(content: Text(""));
+            return index == 0 ? MovieListScreen() : MovieFavouriteScreen();
           },
         ),
         bottomNavigationBar: BlocBuilder<BottombarCubit, int>(

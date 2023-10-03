@@ -1,3 +1,4 @@
+import 'package:fluttertmdb/domain/models/movie_model.dart';
 import 'package:fluttertmdb/ui/screens/auth/auth_screen.dart';
 import 'package:fluttertmdb/ui/screens/main_screen/main_screen.dart';
 import 'package:fluttertmdb/ui/screens/movie_details/movie_details.screen.dart';
@@ -52,7 +53,10 @@ GoRoute getMoviesListRoute() => GoRoute(
 GoRoute getMovieDetailsRoute() => GoRoute(
     path: movieDetailsRoute,
     name: movieDetailsRoute,
-    builder: (context, state) => const MovieDetailsScreen());
+    builder: (context, state) {
+      MovieModel movie = state.extra as MovieModel;
+      return MovieDetailsScreen(movie: movie);
+    });
 
 GoRoute getSettingsRoute() => GoRoute(
     path: settingsRoute,

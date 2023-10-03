@@ -20,6 +20,9 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     final cubit = LoginCubit(loginUsecase: get_it.getItInstance());
 
+    final emailController = TextEditingController();
+    final passwordController = TextEditingController();
+
     return BlocProvider(
       create: (context) => cubit,
       child: BlocBuilder<LoginCubit, UIState>(
@@ -54,6 +57,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         vertical: 16.0, horizontal: 35),
                     child: Material(
                         child: TextFormField(
+                            controller: emailController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter valid email';
@@ -73,6 +77,7 @@ class _AuthScreenState extends State<AuthScreen> {
                         vertical: 16.0, horizontal: 35),
                     child: Material(
                         child: TextFormField(
+                            controller: passwordController,
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return 'Please enter valid password';
@@ -94,7 +99,8 @@ class _AuthScreenState extends State<AuthScreen> {
                               MaterialStatePropertyAll(Colors.deepPurple)),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          cubit.login("akmt567@gmail.com", "password");
+                          cubit.login(
+                              emailController.text, passwordController.text);
                         }
                       },
                       child: const Row(
@@ -109,14 +115,14 @@ class _AuthScreenState extends State<AuthScreen> {
             );
           } else if (state is Sucess) {
             context.pushNamed(mainRoute);
-            return const SnackBar(content: Text("Login successful"));
+            return const Placeholder();
           } else if (state is Loading) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else {
             final error = state is UiFailure
                 ? state.exception.toString()
                 : "No Items found";
-            return Center(child: Text("$error has occurred"));
+            return SnackBar(content: Text("$error has occurred"));
           }
         },
       ),
