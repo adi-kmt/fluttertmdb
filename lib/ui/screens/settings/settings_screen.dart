@@ -32,21 +32,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 });
               }),
         ),
-        InkWell(
-          onTap: () {
-            const SimpleAlertDialog(
-              icon: Icon(Icons.clear_outlined),
-              title: "Confirm Sign Out",
-              content: "Are you sure you want to sign out of the app? "
-                  "Tap on the Signout button to confirm ",
-            );
-          },
-          child: const SettingsItemWidget(
-            initalIcon:
-                Icon(Icons.account_circle_outlined, color: Colors.white),
-            upperText: "Account",
-            lowerText: "Sign out",
-            endingWidget: Icon(Icons.clear_outlined, color: Colors.white),
+        Material(
+          child: InkWell(
+            onTap: () {
+              const SimpleAlertDialog(
+                icon: Icon(Icons.clear_outlined),
+                title: "Confirm Sign Out",
+                content: "Are you sure you want to sign out of the app? "
+                    "Tap on the Signout button to confirm ",
+              );
+            },
+            child: const SettingsItemWidget(
+              initalIcon:
+                  Icon(Icons.account_circle_outlined, color: Colors.white),
+              upperText: "Account",
+              lowerText: "Sign out",
+              endingWidget: Icon(Icons.clear_outlined, color: Colors.white),
+            ),
           ),
         )
       ],
