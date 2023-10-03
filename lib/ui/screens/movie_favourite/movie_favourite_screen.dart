@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
 import 'package:fluttertmdb/common/ui_state.dart';
 import 'package:fluttertmdb/domain/models/movie_model.dart';
+import 'package:fluttertmdb/ui/routing/router.dart';
 import 'package:fluttertmdb/ui/screens/movie_favourite/bloc/movie_favourite_cubit.dart';
 import 'package:fluttertmdb/ui/widgets/movie_favourite_item_widget.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieFavouriteScreen extends StatelessWidget {
   const MovieFavouriteScreen({super.key});
@@ -25,10 +27,15 @@ class MovieFavouriteScreen extends StatelessWidget {
           return ListView.builder(
             itemCount: movies.length,
             itemBuilder: (BuildContext context, int index) {
-              return MovieFavouriteItemWidget(
-                imagePath: movies[index].posterPath,
-                title: movies[index].title,
-                description: movies[index].overview,
+              return InkWell(
+                onTap: () {
+                  context.pushNamed(movieDetailsRoute, extra: movies[index]);
+                },
+                child: MovieFavouriteItemWidget(
+                  imagePath: movies[index].posterPath,
+                  title: movies[index].title,
+                  description: movies[index].overview,
+                ),
               );
             },
           );

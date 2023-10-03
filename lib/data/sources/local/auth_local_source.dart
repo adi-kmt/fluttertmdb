@@ -14,7 +14,8 @@ class AuthLocalSource {
   Future<ResponseWrapper> clearLoggedInUser() async {
     try {
       sharedPreferences = await SharedPreferences.getInstance();
-      bool isSuccessful = await sharedPreferences.clear();
+      bool isSuccessful =
+          await sharedPreferences.remove(LocalSourceUtils.userSharedPrefsKey);
       if (isSuccessful) {
         return Success(null);
       } else {

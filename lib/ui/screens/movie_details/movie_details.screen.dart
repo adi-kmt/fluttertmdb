@@ -11,6 +11,8 @@ class MovieDetailsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isFavourite = false;
+
     final cubit = MovieDetailsCubit(
         addFavouriteMovieUsecase: get_it.getItInstance(),
         deleteFavouriteMovieUsecase: get_it.getItInstance());
@@ -48,10 +50,19 @@ class MovieDetailsScreen extends StatelessWidget {
                           ),
                         ),
                         const Spacer(flex: 1),
-                        const Icon(
-                          Icons.favorite_border,
-                          size: 36.0,
-                          color: Colors.red,
+                        IconButton(
+                          onPressed: () {
+                            isFavourite = !isFavourite;
+                          },
+                          icon: Icon(
+                            isFavourite == true
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: isFavourite == true
+                                ? const Color(0xff6750A4)
+                                : const Color(0xFF000000),
+                            size: 24,
+                          ),
                         ),
                       ],
                     ),

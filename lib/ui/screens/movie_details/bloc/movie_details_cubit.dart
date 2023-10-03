@@ -21,7 +21,8 @@ class MovieDetailsCubit extends Cubit<UIState> {
 
   void removeFavouriteMovie(MovieModel movieModel) async {
     emit(const UIState.loading());
-    handleResponse(await addFavouriteMovieUsecase.call(movieModel.id));
+    handleResponse(
+        await deleteFavouriteMovieUsecase.call(movieModel.toString()));
   }
 
   void handleResponse(ResponseWrapper response) {

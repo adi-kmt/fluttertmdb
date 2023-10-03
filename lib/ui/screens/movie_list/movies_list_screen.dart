@@ -94,7 +94,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
               ),
             );
           } else if (state is Loading) {
-            return const CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else {
             final error = state is UiFailure
                 ? state.exception.toString()
