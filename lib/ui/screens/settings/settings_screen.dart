@@ -1,11 +1,17 @@
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertmdb/ui/widgets/SimpleAlertDialog.dart';
 import 'package:fluttertmdb/ui/widgets/settings_item_widget.dart';
 
-class SettingsScreen extends StatelessWidget {
+class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
 
+  @override
+  State<SettingsScreen> createState() => _SettingsScreenState();
+}
+
+class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     bool isDark = false;
@@ -20,15 +26,28 @@ class SettingsScreen extends StatelessWidget {
           endingWidget: CupertinoSwitch(
               value: isDark,
               onChanged: (bool value) {
-                isDark = !isDark;
-                AdaptiveTheme.of(context).toggleThemeMode();
+                setState(() {
+                  isDark = !isDark;
+                  AdaptiveTheme.of(context).toggleThemeMode();
+                });
               }),
         ),
-        const SettingsItemWidget(
-          initalIcon: Icon(Icons.account_circle_outlined, color: Colors.white),
-          upperText: "Account",
-          lowerText: "Sign out",
-          endingWidget: Icon(Icons.clear_outlined, color: Colors.white),
+        InkWell(
+          onTap: () {
+            const SimpleAlertDialog(
+              icon: Icon(Icons.clear_outlined),
+              title: "Confirm Sign Out",
+              content: "Are you sure you want to sign out of the app? "
+                  "Tap on the Signout button to confirm ",
+            );
+          },
+          child: const SettingsItemWidget(
+            initalIcon:
+                Icon(Icons.account_circle_outlined, color: Colors.white),
+            upperText: "Account",
+            lowerText: "Sign out",
+            endingWidget: Icon(Icons.clear_outlined, color: Colors.white),
+          ),
         )
       ],
     );

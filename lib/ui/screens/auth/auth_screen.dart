@@ -114,7 +114,7 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             );
           } else if (state is Sucess) {
-            context.pushNamed(mainRoute);
+            context.pushReplacementNamed(mainRoute);
             return const Placeholder();
           } else if (state is Loading) {
             return const Center(child: CircularProgressIndicator());

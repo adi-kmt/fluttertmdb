@@ -39,7 +39,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
       child: BlocBuilder<CheckAuthCubit, bool>(
         builder: (context, state) {
           if (state == true) {
-            context.pushNamed(mainRoute);
+            context.pushReplacementNamed(mainRoute);
             return const SnackBar(content: Text("User already logged in"));
           } else {
             return Column(
