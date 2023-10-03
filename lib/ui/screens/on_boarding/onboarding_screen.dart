@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
 import 'package:fluttertmdb/ui/routing/router.dart';
+import 'package:fluttertmdb/ui/utils/typography.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../utils/colour_util.dart';
 import 'bloc/check_auth_cubit.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -43,47 +45,95 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             return const SnackBar(content: Text("User already logged in"));
           } else {
             return Column(
+              mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  width: MediaQuery.sizeOf(context).width,
-                  height: MediaQuery.sizeOf(context).height / 2,
-                  decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(8),
-                          bottomRight: Radius.circular(8))),
-                  child: Image.asset("assets/images/onboarding.svg"),
-                ),
+                Stack(alignment: Alignment.center, children: [
+                  Column(
+                    children: [
+                      Text("The",
+                          style: TypographyTmdb.appbarHeading
+                              .copyWith(color: Colors.black)),
+                      Text("TMDB",
+                          style: TypographyTmdb.subHeading
+                              .copyWith(color: Colors.white)),
+                      Text("App",
+                          style: TypographyTmdb.appbarHeading
+                              .copyWith(color: Colors.white)),
+                    ],
+                  ),
+                  Container(
+                    width: MediaQuery.sizeOf(context).width,
+                    height: MediaQuery.sizeOf(context).height / 2,
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(8),
+                            bottomRight: Radius.circular(8))),
+                    child:
+                        Image.asset("images/onboarding.png", fit: BoxFit.cover),
+                  ),
+                ]),
                 LinearProgressIndicator(
                   value: _progress,
                   minHeight: 10,
                 ),
-                Text(
-                  titles[_index],
-                  style: const TextStyle(fontSize: 10),
+                Padding(
+                  padding:
+                      const EdgeInsets.only(top: 35.0, left: 15, right: 15),
+                  child: Text(
+                    titles[_index],
+                    style: TypographyTmdb.subHeading.copyWith(
+                        color: Colors.black, decoration: TextDecoration.none),
+                  ),
                 ),
-                Text(description[_index], style: const TextStyle(fontSize: 10)),
-                Visibility(
-                  visible: _index != 2,
-                  replacement: ElevatedButton(
-                      onPressed: () {
-                        context.goNamed(authRoute);
-                      },
-                      child: const Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Icon(Icons.arrow_forward_outlined),
-                            Text("Login")
-                          ])),
-                  child: ElevatedButton(
-                      onPressed: () => {
-                            setState(() {
-                              _progress += 0.33;
-                              _index++;
-                            })
-                          },
-                      child: const Padding(
-                          padding: EdgeInsets.all(20),
-                          child: Icon(Icons.navigate_next))),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      vertical: 10.0, horizontal: 55),
+                  child: Text(description[_index],
+                      textAlign: TextAlign.center,
+                      style: TypographyTmdb.desc.copyWith(
+                          color: Colors.black,
+                          decoration: TextDecoration.none)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 50.0),
+                  child: Visibility(
+                    visible: _index != 2,
+                    replacement: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          context.goNamed(authRoute);
+                        },
+                        child: const Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.arrow_forward_outlined),
+                              Text("Login")
+                            ]),
+                      ),
+                    ),
+                    child: ElevatedButton(
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStatePropertyAll(ColourUtil.maroon),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius:
+                                        BorderRadius.circular(15.0)))),
+                        onPressed: () => {
+                              setState(() {
+                                _progress += 0.33;
+                                _index++;
+                              })
+                            },
+                        child: const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 20),
+                            child: Icon(
+                              Icons.navigate_next,
+                              color: ColourUtil.textNormal,
+                            ))),
+                  ),
                 )
               ],
             );

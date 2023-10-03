@@ -4,12 +4,14 @@ class ThemeUtils {
   ThemeUtils._();
 
   static ThemeData lightTheme = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.light,
     primaryColor: Colors.deepPurple,
     scaffoldBackgroundColor: Colors.white,
   );
 
   static ThemeData darkTheme = ThemeData(
+    useMaterial3: true,
     brightness: Brightness.dark,
     primaryColor: Colors.purpleAccent,
     scaffoldBackgroundColor: const Color(0xff211F26),

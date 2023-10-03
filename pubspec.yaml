@@ -69,7 +69,6 @@ dev_dependencies:
   flutter_gen_runner: any
   injectable_generator: any
   mockito:
-  sqflite_common_ffi:
   flutter_gen:
 
   # The "flutter_lints" package below contains a set of recommended lints to

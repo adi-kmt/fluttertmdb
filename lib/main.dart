@@ -14,12 +14,14 @@ import 'common/firebase_options.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   unawaited(get_it.init());
-  if (defaultTargetPlatform == TargetPlatform.windows ||
-      defaultTargetPlatform == TargetPlatform.linux) {
-    // Initialize FFI
-    sqfliteFfiInit();
+  if (!kIsWeb) {
+    if (defaultTargetPlatform == TargetPlatform.windows ||
+        defaultTargetPlatform == TargetPlatform.linux) {
+      // Initialize FFI
+      sqfliteFfiInit();
+    }
+    databaseFactory = databaseFactoryFfi;
   }
-  databaseFactory = databaseFactoryFfi;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
