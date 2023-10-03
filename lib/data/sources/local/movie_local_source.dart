@@ -6,7 +6,7 @@ import 'package:fluttertmdb/data/models/local_movie_favourite_entity.dart';
 import 'package:fluttertmdb/data/utils/local_source_utils.dart';
 import 'package:fluttertmdb/domain/models/movie_model.dart';
 import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 class LocalMovieSource {
   Database? _database;
@@ -14,6 +14,7 @@ class LocalMovieSource {
   LocalMovieSource();
 
   Future<Database> get database async {
+    databaseFactory = databaseFactoryFfi;
     if (_database != null) return _database!;
     _database = await _initDB(LocalSourceUtils.dbName);
     return _database!;

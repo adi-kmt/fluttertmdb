@@ -7,6 +7,8 @@ import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
 import 'package:fluttertmdb/common/ui_state.dart';
 import 'package:fluttertmdb/domain/models/movie_model.dart';
 import 'package:fluttertmdb/ui/screens/movie_list/bloc/movie_list_cubit.dart';
+import 'package:fluttertmdb/ui/utils/colour_util.dart';
+import 'package:fluttertmdb/ui/utils/typography.dart';
 import 'package:fluttertmdb/ui/widgets/slider_animation.dart';
 
 class MovieListScreen extends StatefulWidget {
@@ -45,6 +47,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
         child: BlocBuilder<MovieListCubit, UIState>(builder: (context, state) {
           if (state is Sucess) {
             final movies = state.data as List<MovieModel>;
+            final reversedMovies = movies.reversed.toList();
             return AnnotatedRegion<SystemUiOverlayStyle>(
               value: const SystemUiOverlayStyle(
                 statusBarBrightness: Brightness.dark,
@@ -53,12 +56,12 @@ class _MovieListScreenState extends State<MovieListScreen> {
                 alignment: Alignment.center,
                 children: <Widget>[
                   Stack(
-                    children: movies.map((movie) {
+                    children: reversedMovies.map((movie) {
                       return ImageSlider(
                         pageValue: pageValue,
                         image:
                             "http://image.tmdb.org/t/p/w500/${movie.posterPath}",
-                        index: movie.id - 1,
+                        index: movies.indexOf(movie),
                       );
                     }).toList(),
                   ),
@@ -76,17 +79,25 @@ class _MovieListScreenState extends State<MovieListScreen> {
                       child: Stack(alignment: Alignment.topCenter, children: [
                         ArtistCard(movies[index], index),
                         Positioned(
-                          bottom: 200,
+                          bottom: 90,
                           child: Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8.0),
                             child: Text(movies[index].title,
-                                style: const TextStyle(fontSize: 15)),
+                                style: TypographyTmdb.mainHeading
+                                    .copyWith(color: ColourUtil.textHighlight)),
                           ),
                         ),
                         Positioned(
-                            bottom: 150,
-                            child: Text(movies[index].overview,
-                                style: const TextStyle(fontSize: 15)))
+                            bottom: 0,
+                            child: SizedBox(
+                              width: 300,
+                              child: Text(movies[index].overview,
+                                  textAlign: TextAlign.start,
+                                  maxLines: 5,
+                                  style: TypographyTmdb.desc.copyWith(
+                                      color: Colors.white,
+                                      overflow: TextOverflow.ellipsis)),
+                            ))
                       ]),
                     ),
                   ),
