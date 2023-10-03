@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertmdb/domain/models/movie_model.dart';
 
@@ -46,8 +47,8 @@ class ImageSlider extends StatelessWidget {
   Widget build(BuildContext context) {
     return ClipPath(
       clipper: ImageClipper(progress: getProgress()),
-      child: Image.asset(
-        image,
+      child: CachedNetworkImage(
+        imageUrl: image,
         height: double.infinity,
         fit: BoxFit.cover,
       ),

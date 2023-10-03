@@ -39,6 +39,7 @@ dependencies:
   shared_preferences: ^2.2.1
   sqflite: ^2.3.0
   sqflite_common:
+  sqflite_common_ffi:
   firebase_core:
   firebase_auth:
   cloud_firestore:
@@ -47,6 +48,9 @@ dependencies:
   freezed:
   google_fonts:
   adaptive_theme:
+  cached_network_image:
+  path_provider:
+  path:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.

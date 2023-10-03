@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertmdb/data/utils/api_utils.dart';
 
 class MovieFavouriteItemWidget extends StatelessWidget {
   final String imagePath;
@@ -20,7 +22,11 @@ class MovieFavouriteItemWidget extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Image.asset(imagePath),
+            CachedNetworkImage(
+                imageUrl: ApiUtils.baseUrl + imagePath,
+                height: 75,
+                width: 75,
+                fit: BoxFit.cover),
             Column(
               children: [
                 Text(

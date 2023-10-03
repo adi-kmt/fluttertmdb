@@ -2,16 +2,24 @@ import 'dart:async';
 
 import 'package:adaptive_theme/adaptive_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
 import 'package:fluttertmdb/ui/routing/router.dart';
 import 'package:fluttertmdb/ui/utils/theme_utils.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'common/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   unawaited(get_it.init());
+  if (defaultTargetPlatform == TargetPlatform.windows ||
+      defaultTargetPlatform == TargetPlatform.linux) {
+    // Initialize FFI
+    sqfliteFfiInit();
+  }
+  databaseFactory = databaseFactoryFfi;
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

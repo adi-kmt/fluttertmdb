@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
 import 'package:fluttertmdb/common/ui_state.dart';
+import 'package:fluttertmdb/data/utils/api_utils.dart';
 import 'package:fluttertmdb/domain/models/movie_model.dart';
 import 'package:fluttertmdb/ui/screens/movie_list/bloc/movie_list_cubit.dart';
 import 'package:fluttertmdb/ui/widgets/slider_animation.dart';
@@ -56,7 +57,7 @@ class _MovieListScreenState extends State<MovieListScreen> {
                     children: movies.map((movie) {
                       return ImageSlider(
                         pageValue: pageValue,
-                        image: movie.posterPath,
+                        image: ApiUtils.baseUrl + movie.posterPath,
                         index: movie.id - 1,
                       );
                     }).toList(),

@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
+import 'package:fluttertmdb/data/utils/api_utils.dart';
 import 'package:fluttertmdb/domain/models/movie_model.dart';
 import 'package:fluttertmdb/ui/screens/movie_details/bloc/movie_details_cubit.dart';
 
@@ -30,11 +32,11 @@ class MovieDetailsScreen extends StatelessWidget {
                   SizedBox(
                     width: 150.0,
                     height: 225.0,
-                    child: Image.network(
-                      movie?.posterPath ?? "",
-                      // Replace with the movie's image URL
-                      fit: BoxFit.cover,
-                    ),
+                    child: CachedNetworkImage(
+                        //TODO fix bang operator
+                        imageUrl: ApiUtils.baseUrl + movie!.posterPath ?? "",
+                        // Replace with the movie's image URL
+                        fit: BoxFit.cover),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),

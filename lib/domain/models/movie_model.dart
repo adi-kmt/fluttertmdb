@@ -25,16 +25,16 @@ class MovieModel {
       id: json[MovieFields.id] as int,
       overview: json[MovieFields.overview],
       originalLanguage: json[MovieFields.originalLanguage],
-      voteCount: json[MovieFields.voteCount],
+      voteCount: json[MovieFields.voteCount] as int,
       posterPath: json[MovieFields.posterPath]);
 
   Map<String, dynamic> toJson() => {
         MovieFields.releaseDate: releaseDate,
         MovieFields.title: title,
-        MovieFields.id: id as String,
+        MovieFields.id: id,
         MovieFields.overview: overview,
         MovieFields.originalLanguage: originalLanguage,
-        MovieFields.voteCount: voteCount as String,
+        MovieFields.voteCount: voteCount,
         MovieFields.posterPath: posterPath
       };
 }
