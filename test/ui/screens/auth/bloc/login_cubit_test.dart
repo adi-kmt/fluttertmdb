@@ -2,7 +2,7 @@ import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fluttertmdb/common/response_wrapper.dart';
 import 'package:fluttertmdb/common/ui_state.dart';
-import 'package:fluttertmdb/domain/models/user_model.dart';
+import 'package:fluttertmdb/domain/models/user_model_entity.dart';
 import 'package:fluttertmdb/domain/usecases/users/login_user_usecase.dart';
 import 'package:fluttertmdb/ui/screens/auth/bloc/login_cubit.dart';
 import 'package:mockito/annotations.dart';
@@ -28,8 +28,7 @@ void main() {
   blocTest("Check success",
       setUp: () async {
         provideDummy(const ResponseWrapper<dynamic>.Success(true));
-        when(loginUserUsecase
-                .call(UserModel(email: "email", password: "password")))
+        when(loginUserUsecase.call(UserModel.fromUser("email", "password")))
             .thenAnswer(
                 (invocation) async => const ResponseWrapper.Success(true));
       },
@@ -42,8 +41,7 @@ void main() {
         provideDummy(const ResponseWrapper<dynamic>.Success(true));
         provideDummy(
             ResponseWrapper.Failure(Exception("Something went wrong")));
-        when(loginUserUsecase
-                .call(UserModel(email: "email", password: "password")))
+        when(loginUserUsecase.call(UserModel.fromUser("email", "password")))
             .thenAnswer((invocation) async =>
                 ResponseWrapper.Failure(Exception("Something went wrong")));
       },

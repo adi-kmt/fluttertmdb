@@ -18,8 +18,10 @@ class _AuthScreenState extends State<AuthScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = LoginCubit(loginUsecase: get_it.getItInstance());
+
     return BlocProvider(
-      create: (context) => LoginCubit(loginUsecase: get_it.getItInstance()),
+      create: (context) => cubit,
       child: BlocBuilder<LoginCubit, UIState>(
         builder: (context, state) {
           if (state is Initial) {
@@ -37,7 +39,8 @@ class _AuthScreenState extends State<AuthScreen> {
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(8.0),
                             bottomRight: Radius.circular(8.0))),
-                    child: Image(image: AssetImage("assets/images/auth.svg")),
+                    child: const Image(
+                        image: AssetImage("assets/images/auth.svg")),
                   ),
                   const Padding(
                     padding: EdgeInsets.all(16.0),
@@ -90,7 +93,9 @@ class _AuthScreenState extends State<AuthScreen> {
                           backgroundColor:
                               MaterialStatePropertyAll(Colors.deepPurple)),
                       onPressed: () {
-                        if (_formKey.currentState!.validate()) {}
+                        if (_formKey.currentState!.validate()) {
+                          cubit.login("akmt567@gmail.com", "password");
+                        }
                       },
                       child: const Row(
                         mainAxisSize: MainAxisSize.min,
@@ -103,8 +108,8 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             );
           } else if (state is Sucess) {
-            context.pushNamed(moviesListRoute);
-            return const SnackBar(content: Text("Login succesful"));
+            context.pushNamed(mainRoute);
+            return const SnackBar(content: Text("Login successful"));
           } else if (state is Loading) {
             return const CircularProgressIndicator();
           } else {

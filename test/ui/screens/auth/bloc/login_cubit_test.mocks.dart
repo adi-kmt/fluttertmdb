@@ -6,7 +6,7 @@
 import 'dart:async' as _i4;
 
 import 'package:fluttertmdb/common/response_wrapper.dart' as _i5;
-import 'package:fluttertmdb/domain/models/user_model.dart' as _i6;
+import 'package:fluttertmdb/domain/models/user_model_entity.dart' as _i6;
 import 'package:fluttertmdb/domain/repositories/auth/auth_repository.dart'
     as _i2;
 import 'package:fluttertmdb/domain/usecases/users/login_user_usecase.dart'

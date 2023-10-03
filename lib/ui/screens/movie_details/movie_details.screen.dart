@@ -9,7 +9,7 @@ class MovieDetailsScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(height: 10.0), // 10 pixels below app bar
+          const SizedBox(height: 10.0), // 10 pixels below app bar
           Center(
             child: Column(
               children: [
@@ -21,21 +21,21 @@ class MovieDetailsScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
+                const Padding(
+                  padding: EdgeInsets.all(16.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Spacer(flex: 2),
                       Text(
                         "movie.title",
-                        style: const TextStyle(
+                        style: TextStyle(
                           fontSize: 36.0,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       Spacer(flex: 1),
-                      const Icon(
+                      Icon(
                         Icons.favorite_border,
                         size: 36.0,
                         color: Colors.red,

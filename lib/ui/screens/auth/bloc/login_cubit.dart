@@ -1,8 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:fluttertmdb/common/response_wrapper.dart';
 import 'package:fluttertmdb/common/ui_state.dart';
-import 'package:fluttertmdb/domain/models/user_model.dart';
 import 'package:fluttertmdb/domain/usecases/users/login_user_usecase.dart';
+
+import '../../../../domain/models/user_model_entity.dart';
 
 class LoginCubit extends Cubit<UIState> {
   final LoginUserUsecase loginUsecase;
@@ -12,7 +13,7 @@ class LoginCubit extends Cubit<UIState> {
   void login(String email, String password) async {
     emit(const UIState.loading());
     handleResponse(
-        await loginUsecase.call(UserModel(email: email, password: password)));
+        await loginUsecase.call(UserModel.fromUser(email, password)));
   }
 
   void handleResponse(ResponseWrapper call) async {

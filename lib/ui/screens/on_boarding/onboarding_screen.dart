@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
 import 'package:fluttertmdb/ui/routing/router.dart';
 import 'package:go_router/go_router.dart';
+
+import 'bloc/check_auth_cubit.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -28,49 +32,64 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: MediaQuery.sizeOf(context).width,
-          height: MediaQuery.sizeOf(context).height / 2,
-          decoration: const BoxDecoration(
-              color: Colors.green,
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(8),
-                  bottomRight: Radius.circular(8))),
-          child: Image.asset("assets/images/onboarding.svg"),
-        ),
-        LinearProgressIndicator(
-          value: _progress,
-          minHeight: 10,
-        ),
-        Text(
-          titles[_index],
-          style: const TextStyle(fontSize: 10),
-        ),
-        Text(description[_index], style: const TextStyle(fontSize: 10)),
-        Visibility(
-          visible: _index != 2,
-          replacement: ElevatedButton(
-              onPressed: () {
-                context.goNamed(authRoute);
-              },
-              child: const Row(mainAxisSize: MainAxisSize.min, children: [
-                Icon(Icons.arrow_forward_outlined),
-                Text("Login")
-              ])),
-          child: ElevatedButton(
-              onPressed: () => {
-                    setState(() {
-                      _progress += 0.33;
-                      _index++;
-                    })
-                  },
-              child: const Padding(
-                  padding: EdgeInsets.all(20),
-                  child: Icon(Icons.navigate_next))),
-        )
-      ],
+    final cubit = CheckAuthCubit(getCurrentUserUsecase: get_it.getItInstance());
+
+    return BlocProvider(
+      create: (context) => cubit,
+      child: BlocBuilder<CheckAuthCubit, bool>(
+        builder: (context, state) {
+          if (state == true) {
+            context.pushNamed(mainRoute);
+            return const SnackBar(content: Text("User already logged in"));
+          } else {
+            return Column(
+              children: [
+                Container(
+                  width: MediaQuery.sizeOf(context).width,
+                  height: MediaQuery.sizeOf(context).height / 2,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(8),
+                          bottomRight: Radius.circular(8))),
+                  child: Image.asset("assets/images/onboarding.svg"),
+                ),
+                LinearProgressIndicator(
+                  value: _progress,
+                  minHeight: 10,
+                ),
+                Text(
+                  titles[_index],
+                  style: const TextStyle(fontSize: 10),
+                ),
+                Text(description[_index], style: const TextStyle(fontSize: 10)),
+                Visibility(
+                  visible: _index != 2,
+                  replacement: ElevatedButton(
+                      onPressed: () {
+                        context.goNamed(authRoute);
+                      },
+                      child: const Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.arrow_forward_outlined),
+                            Text("Login")
+                          ])),
+                  child: ElevatedButton(
+                      onPressed: () => {
+                            setState(() {
+                              _progress += 0.33;
+                              _index++;
+                            })
+                          },
+                      child: const Padding(
+                          padding: EdgeInsets.all(20),
+                          child: Icon(Icons.navigate_next))),
+                )
+              ],
+            );
+          }
+        },
+      ),
     );
   }
 }

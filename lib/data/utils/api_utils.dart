@@ -8,7 +8,8 @@ class ApiUtils {
   static const String getMoviesEndpoint = "3/discover/movie";
 
   //Api key
-  static const String bearerToken = 'bearerToken';
+  static const String bearerToken =
+      'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxZDNmNzkwMWNhNjA5YjNmYWY5NjZhNzM4Y2VkMjQwNiIsInN1YiI6IjYzYmQwYzA3YTZlMmQyMDA5MjExNTI2MyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.sDP7Rr5I-tUQESuKBFUGgagGwPVQFOpnCnsVkn7tFn0';
 
   // receiveTimeout
   static const int receiveTimeout = 15000;

@@ -9,7 +9,7 @@ import 'package:fluttertmdb/common/response_wrapper.dart' as _i5;
 import 'package:fluttertmdb/data/sources/local/auth_local_source.dart' as _i3;
 import 'package:fluttertmdb/data/sources/remote/firebase_auth_source.dart'
     as _i8;
-import 'package:fluttertmdb/domain/models/user_model.dart' as _i7;
+import 'package:fluttertmdb/domain/models/user_model_entity.dart' as _i7;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
 import 'package:shared_preferences/shared_preferences.dart' as _i2;
@@ -52,7 +52,6 @@ class MockAuthLocalSource extends _i1.Mock implements _i3.AuthLocalSource {
           Invocation.getter(#sharedPreferences),
         ),
       ) as _i2.SharedPreferences);
-
   @override
   set sharedPreferences(_i2.SharedPreferences? _sharedPreferences) =>
       super.noSuchMethod(
@@ -62,7 +61,6 @@ class MockAuthLocalSource extends _i1.Mock implements _i3.AuthLocalSource {
         ),
         returnValueForMissingStub: null,
       );
-
   @override
   _i4.Future<_i5.ResponseWrapper<dynamic>> clearLoggedInUser() =>
       (super.noSuchMethod(
@@ -79,7 +77,6 @@ class MockAuthLocalSource extends _i1.Mock implements _i3.AuthLocalSource {
           ),
         )),
       ) as _i4.Future<_i5.ResponseWrapper<dynamic>>);
-
   @override
   _i4.Future<_i5.ResponseWrapper<dynamic>> setLoggedInUser(
           _i7.UserModel? userModel) =>
@@ -97,7 +94,6 @@ class MockAuthLocalSource extends _i1.Mock implements _i3.AuthLocalSource {
           ),
         )),
       ) as _i4.Future<_i5.ResponseWrapper<dynamic>>);
-
   @override
   _i4.Future<_i5.ResponseWrapper<_i7.UserModel>> getCurrentUser() =>
       (super.noSuchMethod(
@@ -141,7 +137,6 @@ class MockFirebaseAuthSource extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i5.ResponseWrapper<_i7.UserModel>>);
-
   @override
   _i4.Future<_i5.ResponseWrapper<bool>> logout() => (super.noSuchMethod(
         Invocation.method(

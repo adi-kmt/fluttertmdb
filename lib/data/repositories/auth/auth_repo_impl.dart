@@ -1,8 +1,9 @@
 import 'package:fluttertmdb/common/response_wrapper.dart';
 import 'package:fluttertmdb/data/sources/local/auth_local_source.dart';
 import 'package:fluttertmdb/data/sources/remote/firebase_auth_source.dart';
-import 'package:fluttertmdb/domain/models/user_model.dart';
 import 'package:fluttertmdb/domain/repositories/auth/auth_repository.dart';
+
+import '../../../domain/models/user_model_entity.dart';
 
 class AuthRepositoryImpl implements AuthRepository {
   final AuthLocalSource authLocalSource;
@@ -35,7 +36,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<ResponseWrapper> setLoggedInUser(UserModel user) async {
     final result = await firebaseAuthSource.login(user);
     if (result is Success) {
-      final isSuccess = authLocalSource.setLoggedInUser(user);
+      final isSuccess = await authLocalSource.setLoggedInUser(user);
       if (isSuccess is Success) {
         return const Success(null);
       } else {

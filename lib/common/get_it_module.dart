@@ -4,6 +4,7 @@ import 'package:fluttertmdb/data/repositories/movies/movies_repo_impl.dart';
 import 'package:fluttertmdb/data/sources/local/auth_local_source.dart';
 import 'package:fluttertmdb/data/sources/local/movie_local_source.dart';
 import 'package:fluttertmdb/data/sources/remote/firebase_auth_source.dart';
+import 'package:fluttertmdb/data/sources/remote/firebase_firestore_source.dart';
 import 'package:fluttertmdb/data/sources/remote/remote_movies_source.dart';
 import 'package:fluttertmdb/data/utils/dio_client.dart';
 import 'package:fluttertmdb/domain/repositories/auth/auth_repository.dart';
@@ -27,6 +28,8 @@ Future init() async {
       () => RemoteMoviesSource(apiClient: getItInstance()));
   getItInstance
       .registerLazySingleton<LocalMovieSource>(() => LocalMovieSource());
+  getItInstance.registerLazySingleton<FirebaseFirestoreSource>(
+      () => FirebaseFirestoreSource());
   getItInstance.registerLazySingleton<MoviesRepository>(() => MoviesRepoImpl(
       remoteNewsSource: getItInstance(),
       localMovieSource: getItInstance(),

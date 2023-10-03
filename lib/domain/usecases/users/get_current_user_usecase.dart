@@ -1,6 +1,7 @@
 import 'package:fluttertmdb/common/response_wrapper.dart';
-import 'package:fluttertmdb/domain/models/user_model.dart';
 import 'package:fluttertmdb/domain/repositories/auth/auth_repository.dart';
+
+import '../../models/user_model_entity.dart';
 
 class GetCurrentUserUsecase {
   final AuthRepository authRepository;

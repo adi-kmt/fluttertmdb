@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:fluttertmdb/common/response_wrapper.dart';
-import 'package:fluttertmdb/domain/models/user_model.dart';
+import 'package:fluttertmdb/domain/models/user_model_entity.dart';
 import 'package:fluttertmdb/domain/repositories/auth/auth_repository.dart';
 import 'package:fluttertmdb/domain/usecases/users/login_user_usecase.dart';
 import 'package:mockito/annotations.dart';
@@ -19,7 +19,7 @@ void main() {
   });
 
   test("check success response", () async {
-    final userModel = UserModel(email: "email", password: "password");
+    final userModel = UserModel.fromUser("email", "password");
     provideDummy(ResponseWrapper<dynamic>.Success(true));
 
     when(authRepository.setLoggedInUser(userModel))
@@ -29,7 +29,7 @@ void main() {
   });
 
   test("check failure response", () async {
-    final userModel = UserModel(email: "email", password: "password");
+    final userModel = UserModel.fromUser("email", "password");
 
     provideDummy(ResponseWrapper.Failure(Exception("Something went wrong")));
     provideDummy(ResponseWrapper.Success(true));

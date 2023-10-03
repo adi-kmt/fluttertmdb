@@ -2,8 +2,9 @@ import 'dart:convert';
 
 import 'package:fluttertmdb/common/response_wrapper.dart';
 import 'package:fluttertmdb/data/utils/local_source_utils.dart';
-import 'package:fluttertmdb/domain/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../domain/models/user_model_entity.dart';
 
 class AuthLocalSource {
   late final SharedPreferences sharedPreferences;
