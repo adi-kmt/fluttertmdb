@@ -3,6 +3,9 @@ import 'dart:ui';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertmdb/domain/models/movie_model.dart';
+import 'package:go_router/go_router.dart';
+
+import '../routing/router.dart';
 
 class ArtistCard extends StatelessWidget {
   final MovieModel movie;
@@ -12,16 +15,19 @@ class ArtistCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 350,
-      // margin: EdgeInsets.only(),
-      child: ClipRRect(
-        borderRadius: const BorderRadius.all(
-          Radius.circular(16),
-        ),
-        child: CachedNetworkImage(
-          imageUrl: "http://image.tmdb.org/t/p/w500/${movie.posterPath}",
-          fit: BoxFit.cover,
+    return InkWell(
+      onTap: () => context.pushNamed(movieDetailsRoute, extra: movie),
+      child: SizedBox(
+        height: 350,
+        // margin: EdgeInsets.only(),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(16),
+          ),
+          child: CachedNetworkImage(
+            imageUrl: "http://image.tmdb.org/t/p/w500/${movie.posterPath}",
+            fit: BoxFit.cover,
+          ),
         ),
       ),
     );

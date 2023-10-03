@@ -22,6 +22,7 @@ final tmdbRoutes = GoRouter(routes: <RouteBase>[
   getMoviesFavouriteRoute(),
   getMoviesListRoute(),
   getSettingsRoute(),
+  getMovieDetailsRoute(),
   getMainScreenRoute()
 ]);
 
