@@ -6,6 +6,8 @@ import 'package:fluttertmdb/ui/routing/router.dart';
 import 'package:fluttertmdb/ui/screens/auth/bloc/login_cubit.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../utils/typography.dart';
+
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
 
@@ -38,18 +40,19 @@ class _AuthScreenState extends State<AuthScreen> {
                     height: MediaQuery.sizeOf(context).height / 2,
                     width: MediaQuery.sizeOf(context).width,
                     decoration: const BoxDecoration(
-                        color: Colors.green,
                         borderRadius: BorderRadius.only(
                             bottomLeft: Radius.circular(8.0),
                             bottomRight: Radius.circular(8.0))),
                     child: const Image(
-                        image: AssetImage("assets/images/auth.svg")),
+                        image: AssetImage("images/auth.png"),
+                        fit: BoxFit.cover),
                   ),
-                  const Padding(
-                    padding: EdgeInsets.all(16.0),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
                     child: Text(
                       "Authentication",
-                      style: TextStyle(color: Colors.black),
+                      style: TypographyTmdb.mainHeading.copyWith(
+                          color: Colors.black, decoration: TextDecoration.none),
                     ),
                   ),
                   Padding(
@@ -64,8 +67,10 @@ class _AuthScreenState extends State<AuthScreen> {
                               }
                               return null;
                             },
-                            decoration: const InputDecoration(
-                                suffixIcon: Icon(Icons.close_outlined),
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: emailController.clear,
+                                    icon: Icon(Icons.close_rounded)),
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter your email',
                                 label: Text("Email"),
@@ -85,31 +90,36 @@ class _AuthScreenState extends State<AuthScreen> {
                               return null;
                             },
                             obscureText: true,
-                            decoration: const InputDecoration(
-                                suffixIcon: Icon(Icons.close_outlined),
+                            decoration: InputDecoration(
+                                suffixIcon: IconButton(
+                                    onPressed: passwordController.clear,
+                                    icon: Icon(Icons.close_rounded)),
                                 border: OutlineInputBorder(),
                                 hintText: 'Enter your Password',
                                 label: Text("Password"),
                                 floatingLabelBehavior:
                                     FloatingLabelBehavior.always))),
                   ),
-                  ElevatedButton(
-                      style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.deepPurple)),
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          cubit.login(
-                              emailController.text, passwordController.text);
-                        }
-                      },
-                      child: const Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Icon(Icons.close_fullscreen_sharp),
-                          Text("Authenticate")
-                        ],
-                      )),
+                  Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: ElevatedButton(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
+                            cubit.login(
+                                emailController.text, passwordController.text);
+                          }
+                        },
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(vertical: 15),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.close_fullscreen_sharp),
+                              Text("Authenticate")
+                            ],
+                          ),
+                        )),
+                  ),
                 ],
               ),
             );
