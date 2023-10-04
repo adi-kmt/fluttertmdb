@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertmdb/common/get_it_module.dart' as get_it;
 import 'package:fluttertmdb/domain/models/movie_model.dart';
 import 'package:fluttertmdb/ui/screens/movie_details/bloc/movie_details_cubit.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../common/ui_state.dart';
+import '../../routing/router.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
   MovieModel? movie;
@@ -35,10 +37,17 @@ class MovieDetailsScreen extends StatelessWidget {
           }
           return Scaffold(
             appBar: AppBar(
-                toolbarOpacity: 0,
-                iconTheme: const IconThemeData(
-                  color: Color(0xff211F26),
-                )),
+              elevation: 0,
+              iconTheme: const IconThemeData(
+                color: Color(0xff211F26),
+              ),
+              actions: [
+                IconButton(
+                  icon: const Icon(Icons.settings),
+                  onPressed: () => context.pushNamed(settingsRoute),
+                ),
+              ],
+            ),
             body: SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,

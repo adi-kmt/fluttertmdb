@@ -16,6 +16,7 @@ class MainScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
+          elevation: 0,
           title: const Text('Main Screen'),
           actions: [
             IconButton(

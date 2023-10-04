@@ -16,42 +16,50 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     bool isDark = false;
 
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      children: [
-        SettingsItemWidget(
-          initalIcon: const Icon(Icons.dark_mode_outlined, color: Colors.white),
-          upperText: "Theme",
-          lowerText: "Dark Mode",
-          endingWidget: CupertinoSwitch(
-              value: isDark,
-              onChanged: (bool value) {
-                setState(() {
-                  isDark = !isDark;
-                  AdaptiveTheme.of(context).toggleThemeMode();
-                });
-              }),
-        ),
-        Material(
-          child: InkWell(
-            onTap: () {
-              const SimpleAlertDialog(
-                icon: Icon(Icons.clear_outlined),
-                title: "Confirm Sign Out",
-                content: "Are you sure you want to sign out of the app? "
-                    "Tap on the Signout button to confirm ",
-              );
-            },
-            child: const SettingsItemWidget(
-              initalIcon:
-                  Icon(Icons.account_circle_outlined, color: Colors.white),
-              upperText: "Account",
-              lowerText: "Sign out",
-              endingWidget: Icon(Icons.clear_outlined, color: Colors.white),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+          elevation: 0,
+          iconTheme: const IconThemeData(
+            color: Color(0xff211F26),
+          )),
+      body: Column(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          SettingsItemWidget(
+            initalIcon:
+                const Icon(Icons.dark_mode_outlined, color: Colors.white),
+            upperText: "Theme",
+            lowerText: "Dark Mode",
+            endingWidget: CupertinoSwitch(
+                value: isDark,
+                onChanged: (bool value) {
+                  setState(() {
+                    isDark = !isDark;
+                    AdaptiveTheme.of(context).toggleThemeMode();
+                  });
+                }),
           ),
-        )
-      ],
+          Material(
+            child: InkWell(
+              onTap: () {
+                const SimpleAlertDialog(
+                  icon: Icon(Icons.clear_outlined),
+                  title: "Confirm Sign Out",
+                  content: "Are you sure you want to sign out of the app? "
+                      "Tap on the Signout button to confirm ",
+                );
+              },
+              child: const SettingsItemWidget(
+                initalIcon:
+                    Icon(Icons.account_circle_outlined, color: Colors.white),
+                upperText: "Account",
+                lowerText: "Sign out",
+                endingWidget: Icon(Icons.clear_outlined, color: Colors.white),
+              ),
+            ),
+          )
+        ],
+      ),
     );
   }
 }
