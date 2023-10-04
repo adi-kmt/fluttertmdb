@@ -1,4 +1,4 @@
-import 'package:fluttertmdb/common/platform_utils.dart';
+import 'package:flutter/foundation.dart';
 import 'package:fluttertmdb/common/response_wrapper.dart';
 import 'package:fluttertmdb/data/sources/local/movie_local_source.dart';
 import 'package:fluttertmdb/data/sources/remote/firebase_firestore_source.dart';
@@ -19,7 +19,7 @@ class MoviesRepoImpl implements MoviesRepository {
   @override
   Future<ResponseWrapper<List<MovieModel>>> getAllMovies() async {
     final networkResponse = await remoteNewsSource.getAllmovies();
-    if (isMobile()) {
+    if (!kIsWeb) {
       try {
         if (networkResponse is Success) {
           final movies = (networkResponse as Success).data as List<MovieModel>;
@@ -38,28 +38,42 @@ class MoviesRepoImpl implements MoviesRepository {
   }
 
   @override
-  Future<ResponseWrapper> addFavouriteMovie(int id) {
-    final movieResponse = firestoreSource.addLikedMovieItem(id);
-    if (movieResponse is Success) {
-      return localMovieSource.addFavouriteMovie(
-          <String, int>{"id": id, "docId": (movieResponse as Success).data});
-    } else {
-      return movieResponse;
+  Future<ResponseWrapper> addFavouriteMovie(MovieModel movie) async {
+    final movieResponse = await firestoreSource.addLikedMovieItem(movie);
+    if (!kIsWeb) {
+      if (movieResponse is Success) {
+        return localMovieSource
+            .addFavouriteMovie(<String, int>{"id": movie.id});
+      }
     }
+    return movieResponse;
   }
 
   @override
-  Future<ResponseWrapper<List<MovieModel>>> getAllFavouriteMovies() {
-    return localMovieSource.getFavouriteMovies();
+  Future<ResponseWrapper<List<MovieModel>>> getAllFavouriteMovies() async {
+    final movieResponse = await firestoreSource.getAllLikedMovies();
+    if (!kIsWeb) {
+      if (movieResponse is Failure) {
+        return localMovieSource.getFavouriteMovies();
+      }
+    }
+    return movieResponse;
   }
 
   @override
-  Future<ResponseWrapper> deleteFavouriteMovie(String id) {
-    final movieResponse = firestoreSource.deleteFavouriteMovie(id);
-    if (movieResponse is Success) {
-      return localMovieSource.deleteFavouriteMovie(id as int);
-    } else {
-      return movieResponse;
+  Future<ResponseWrapper> deleteFavouriteMovie(int id) async {
+    final movieResponse = await firestoreSource.deleteFavouriteMovie(id);
+    if (!kIsWeb) {
+      if (movieResponse is Success) {
+        return localMovieSource.deleteFavouriteMovie(id);
+      }
     }
+    return movieResponse;
+  }
+
+  @override
+  Future<ResponseWrapper> checkIfMovieIsFavourite(int id) async {
+    final movieResponse = await firestoreSource.checkIfMovieIsFavourite(id);
+    return movieResponse;
   }
 }

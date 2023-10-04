@@ -44,8 +44,7 @@ class LocalMovieSource {
       """);
     await db.execute("""
     CREATE TABLE $movieFavouritesTable (
-    ${MovieFavouritesFields.id} $keyType,
-    ${MovieFavouritesFields.docId} $textType
+    ${MovieFavouritesFields.id} $keyType
     )
     """);
   }
@@ -54,7 +53,7 @@ class LocalMovieSource {
     try {
       final db = await database;
       return await db.insert(moviesTable, movieModel.toJson(),
-              conflictAlgorithm: ConflictAlgorithm.replace) >
+              conflictAlgorithm: ConflictAlgorithm.ignore) >
           0;
     } catch (e) {
       return false;
@@ -97,11 +96,7 @@ class LocalMovieSource {
     try {
       final db = await database;
       final result = await db.insert(
-              movieFavouritesTable,
-              {
-                MovieFavouritesFields.id: map["id"],
-                MovieFavouritesFields.docId: map["docId"]
-              },
+              movieFavouritesTable, {MovieFavouritesFields.id: map["id"]},
               conflictAlgorithm: ConflictAlgorithm.replace) >
           0;
       if (result) {

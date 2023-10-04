@@ -6,7 +6,7 @@ class DeleteFavouriteMovieUsecase {
 
   DeleteFavouriteMovieUsecase({required this.moviesRepository});
 
-  Future<ResponseWrapper> call(String id) async {
+  Future<ResponseWrapper> call(int id) async {
     return await moviesRepository.deleteFavouriteMovie(id);
   }
 }

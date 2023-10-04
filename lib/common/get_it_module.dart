@@ -10,6 +10,7 @@ import 'package:fluttertmdb/data/utils/dio_client.dart';
 import 'package:fluttertmdb/domain/repositories/auth/auth_repository.dart';
 import 'package:fluttertmdb/domain/repositories/movies/movies_repository.dart';
 import 'package:fluttertmdb/domain/usecases/movies/add_favourite_movie_usecase.dart';
+import 'package:fluttertmdb/domain/usecases/movies/check_if_movie_is_favourite_usecase.dart';
 import 'package:fluttertmdb/domain/usecases/movies/delete_favourite_movie_usecase.dart';
 import 'package:fluttertmdb/domain/usecases/movies/get_all_movies_usecase.dart';
 import 'package:fluttertmdb/domain/usecases/movies/get_favourite_movies_usecase.dart';
@@ -43,6 +44,8 @@ Future init() async {
       () => GetFavouriteMoviesUseCase(moviesRepository: getItInstance()));
   getItInstance.registerLazySingleton<DeleteFavouriteMovieUsecase>(
       () => DeleteFavouriteMovieUsecase(moviesRepository: getItInstance()));
+  getItInstance.registerLazySingleton<CheckIfMovieIsFavouriteUsecase>(
+      () => CheckIfMovieIsFavouriteUsecase(moviesRepository: getItInstance()));
 
   // Users Module
   getItInstance
