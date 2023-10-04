@@ -7,16 +7,11 @@ import 'package:fluttertmdb/ui/screens/movie_details/bloc/movie_details_cubit.da
 
 import '../../../common/ui_state.dart';
 
-class MovieDetailsScreen extends StatefulWidget {
+class MovieDetailsScreen extends StatelessWidget {
   MovieModel? movie;
 
   MovieDetailsScreen({super.key, this.movie});
 
-  @override
-  State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
-}
-
-class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   bool isFavourite = false;
   final cubit = MovieDetailsCubit(
       addFavouriteMovieUsecase: get_it.getItInstance(),
@@ -25,8 +20,6 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final movie = widget.movie;
-
     return BlocProvider(
       create: (context) => cubit,
       child: BlocBuilder<MovieDetailsCubit, UIState>(
