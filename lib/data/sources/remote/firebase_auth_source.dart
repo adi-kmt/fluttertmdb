@@ -31,6 +31,21 @@ class FirebaseAuthSource {
     }
   }
 
+  Future<ResponseWrapper<UserModel>> checkLoggedInUser() async {
+    try {
+      final userResponse = _auth.currentUser;
+      if (userResponse != null) {
+        UserModel user =
+            UserModel.fromUser(userResponse.email ?? "email", "password");
+        return Success(user);
+      } else {
+        return Failure(Exception("No auth user found"));
+      }
+    } on Exception catch (e) {
+      return Failure(e);
+    }
+  }
+
   Future<ResponseWrapper<bool>> logout() async {
     try {
       _auth.signOut();

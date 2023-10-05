@@ -48,19 +48,21 @@ class MockMoviesRepository extends _i1.Mock implements _i2.MoviesRepository {
           ),
         )),
       ) as _i3.Future<_i4.ResponseWrapper<List<_i5.MovieModel>>>);
+
   @override
-  _i3.Future<_i4.ResponseWrapper<dynamic>> addFavouriteMovie(int? id) =>
+  _i3.Future<_i4.ResponseWrapper<dynamic>> addFavouriteMovie(
+          _i5.MovieModel? movie) =>
       (super.noSuchMethod(
         Invocation.method(
           #addFavouriteMovie,
-          [id],
+          [movie],
         ),
         returnValue: _i3.Future<_i4.ResponseWrapper<dynamic>>.value(
             _i6.dummyValue<_i4.ResponseWrapper<dynamic>>(
           this,
           Invocation.method(
             #addFavouriteMovie,
-            [id],
+            [movie],
           ),
         )),
       ) as _i3.Future<_i4.ResponseWrapper<dynamic>>);
@@ -81,8 +83,9 @@ class MockMoviesRepository extends _i1.Mock implements _i2.MoviesRepository {
               ),
             )),
           ) as _i3.Future<_i4.ResponseWrapper<List<_i5.MovieModel>>>);
+
   @override
-  _i3.Future<_i4.ResponseWrapper<dynamic>> deleteFavouriteMovie(String? id) =>
+  _i3.Future<_i4.ResponseWrapper<dynamic>> deleteFavouriteMovie(int? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #deleteFavouriteMovie,
@@ -93,6 +96,23 @@ class MockMoviesRepository extends _i1.Mock implements _i2.MoviesRepository {
           this,
           Invocation.method(
             #deleteFavouriteMovie,
+            [id],
+          ),
+        )),
+      ) as _i3.Future<_i4.ResponseWrapper<dynamic>>);
+
+  @override
+  _i3.Future<_i4.ResponseWrapper<dynamic>> checkIfMovieIsFavourite(int? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkIfMovieIsFavourite,
+          [id],
+        ),
+        returnValue: _i3.Future<_i4.ResponseWrapper<dynamic>>.value(
+            _i6.dummyValue<_i4.ResponseWrapper<dynamic>>(
+          this,
+          Invocation.method(
+            #checkIfMovieIsFavourite,
             [id],
           ),
         )),

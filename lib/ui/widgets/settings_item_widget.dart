@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertmdb/ui/utils/typography.dart';
 
 class SettingsItemWidget extends StatelessWidget {
   final Icon initalIcon;
@@ -18,9 +19,8 @@ class SettingsItemWidget extends StatelessWidget {
     return Container(
         margin: const EdgeInsets.all(8),
         width: double.infinity,
-        height: 70,
+        height: 90,
         decoration: const BoxDecoration(
-            color: Colors.black,
             borderRadius: BorderRadius.all(Radius.circular(8.0))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -34,20 +34,14 @@ class SettingsItemWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
                     upperText,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold),
+                    style: TypographyTmdb.desc,
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 8.0),
                   child: Text(
                     lowerText,
-                    style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold),
+                    style: TypographyTmdb.appbarHeading,
                   ),
                 )
               ],

@@ -24,19 +24,19 @@ void main() {
   test("Check success", () async {
     provideDummy(ResponseWrapper<dynamic>.Success([movieModel]));
 
-    when(moviesRepository.addFavouriteMovie(0))
+    when(moviesRepository.addFavouriteMovie(movieModel))
         .thenAnswer((inv) async => ResponseWrapper.Success(true));
 
-    expect(await addFavouriteMovieUsecase.call(0), isA<Success>());
+    expect(await addFavouriteMovieUsecase.call(movieModel), isA<Success>());
   });
 
   test("Check failure", () async {
     provideDummy(ResponseWrapper<dynamic>.Success([movieModel]));
     provideDummy(ResponseWrapper.Failure(Exception("Something went wrong")));
 
-    when(moviesRepository.addFavouriteMovie(0))
+    when(moviesRepository.addFavouriteMovie(movieModel))
         .thenAnswer((inv) async => ResponseWrapper.Failure(Exception()));
 
-    expect(await addFavouriteMovieUsecase.call(0), isA<Failure>());
+    expect(await addFavouriteMovieUsecase.call(movieModel), isA<Failure>());
   });
 }

@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertmdb/data/utils/api_utils.dart';
+import 'package:fluttertmdb/ui/utils/typography.dart';
 
 class MovieFavouriteItemWidget extends StatelessWidget {
   final String imagePath;
@@ -23,19 +23,24 @@ class MovieFavouriteItemWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             CachedNetworkImage(
-                imageUrl: ApiUtils.baseUrl + imagePath,
+                imageUrl: "http://image.tmdb.org/t/p/w500/$imagePath",
                 height: 75,
                 width: 75,
                 fit: BoxFit.cover),
             Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   title,
-                  style: const TextStyle(color: Colors.black, fontSize: 10),
+                  style: TypographyTmdb.desc,
                 ),
-                Text(
-                  description,
-                  style: const TextStyle(color: Colors.black, fontSize: 15),
+                SizedBox(
+                  width: 250,
+                  child: Text(
+                    description,
+                    overflow: TextOverflow.ellipsis,
+                    style: TypographyTmdb.desc,
+                  ),
                 )
               ],
             ),

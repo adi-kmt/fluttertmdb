@@ -10,9 +10,9 @@ import '../../../common/ui_state.dart';
 import '../../routing/router.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
-  MovieModel? movie;
+  final MovieModel movie;
 
-  MovieDetailsScreen({super.key, this.movie});
+  MovieDetailsScreen({super.key, required this.movie});
 
   bool isFavourite = false;
   final cubit = MovieDetailsCubit(
@@ -29,7 +29,7 @@ class MovieDetailsScreen extends StatelessWidget {
           if (state is Loading) {
             return const Center(child: CircularProgressIndicator());
           } else if (state is Initial) {
-            cubit.checkIfMovieIsFavourite(movie?.id ?? 0);
+            cubit.checkIfMovieIsFavourite(movie.id);
             return const SnackBar(content: Text("Movie Is being fetched"));
           } else if (state is Sucess) {
             final _isFavourite = state.data as bool;
@@ -61,7 +61,7 @@ class MovieDetailsScreen extends StatelessWidget {
                           height: 225.0,
                           child: CachedNetworkImage(
                               imageUrl:
-                                  "http://image.tmdb.org/t/p/w500/${movie?.posterPath}",
+                                  "http://image.tmdb.org/t/p/w500/${movie.posterPath}",
                               // Replace with the movie's image URL
                               fit: BoxFit.cover),
                         ),
@@ -72,7 +72,7 @@ class MovieDetailsScreen extends StatelessWidget {
                             children: [
                               const Spacer(flex: 2),
                               Text(
-                                movie?.title ?? "",
+                                movie.title,
                                 style: const TextStyle(
                                   fontSize: 36.0,
                                   fontWeight: FontWeight.bold,
@@ -88,9 +88,9 @@ class MovieDetailsScreen extends StatelessWidget {
                                     : const Color(0xFF000000),
                                 onPressed: () {
                                   if (isFavourite) {
-                                    cubit.removeFavouriteMovie(movie?.id ?? 0);
+                                    cubit.removeFavouriteMovie(movie.id);
                                   } else {
-                                    cubit.addFavouriteMovie(movie!);
+                                    cubit.addFavouriteMovie(movie);
                                   }
                                 },
                               ),
@@ -100,12 +100,12 @@ class MovieDetailsScreen extends StatelessWidget {
                       ],
                     ),
                   ),
-                  _buildInfoRow('Synopsis', movie?.overview ?? ""),
-                  _buildInfoRow('Genre', movie?.originalLanguage ?? ""),
-                  _buildInfoRow('Budget', movie?.releaseDate ?? ""),
-                  _buildInfoRow('Revenue', movie?.originalLanguage ?? ""),
-                  _buildInfoRow('Runtime', movie?.releaseDate ?? ""),
-                  _buildInfoRow('Rating', movie?.voteCount.toString() ?? ""),
+                  _buildInfoRow('Synopsis', movie.overview),
+                  _buildInfoRow('Genre', movie.originalLanguage),
+                  _buildInfoRow('Budget', movie.releaseDate),
+                  _buildInfoRow('Revenue', movie.originalLanguage),
+                  _buildInfoRow('Runtime', movie.releaseDate),
+                  _buildInfoRow('Rating', movie.voteCount.toString()),
                 ],
               ),
             ),

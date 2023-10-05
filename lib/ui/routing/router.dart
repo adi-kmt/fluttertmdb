@@ -17,7 +17,7 @@ const settingsRoute = "/settings";
 const onboardingRoute = "/";
 
 final tmdbRoutes = GoRouter(routes: <RouteBase>[
-  // getOnboardingRoute(),
+  getOnboardingRoute(),
   getAuthRoute(),
   getMoviesFavouriteRoute(),
   getMoviesListRoute(),
@@ -32,8 +32,8 @@ GoRoute getOnboardingRoute() => GoRoute(
     builder: (context, state) => const OnboardingScreen());
 
 GoRoute getMainScreenRoute() => GoRoute(
-    path: onboardingRoute,
-    name: onboardingRoute,
+    path: mainRoute,
+    name: mainRoute,
     builder: (context, state) => const MainScreen());
 
 GoRoute getAuthRoute() => GoRoute(

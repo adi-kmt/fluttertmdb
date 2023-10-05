@@ -16,7 +16,7 @@ class AuthRepositoryImpl implements AuthRepository {
   Future<ResponseWrapper> clearLoggedInUser() async {
     final result = await firebaseAuthSource.logout();
     if (result is Success) {
-      final isSuccess = authLocalSource.clearLoggedInUser();
+      final isSuccess = await authLocalSource.clearLoggedInUser();
       if (isSuccess is Success) {
         return const Success(true);
       } else {
@@ -28,8 +28,18 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<ResponseWrapper<UserModel>> getCurrentUser() {
-    return authLocalSource.getCurrentUser();
+  Future<ResponseWrapper<UserModel>> getCurrentUser() async {
+    final result = await firebaseAuthSource.checkLoggedInUser();
+    if (result is Success) {
+      final isSuccess = await authLocalSource.getCurrentUser();
+      if (isSuccess is Success) {
+        return Success((isSuccess as Success).data as UserModel);
+      } else {
+        return Failure(Exception("No user found"));
+      }
+    } else {
+      return Failure(Exception("No user found"));
+    }
   }
 
   @override

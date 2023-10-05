@@ -24,19 +24,21 @@ void main() {
   test("Check success", () async {
     provideDummy(ResponseWrapper<dynamic>.Success([movieModel]));
 
-    when(moviesRepository.deleteFavouriteMovie("0"))
+    when(moviesRepository.deleteFavouriteMovie(movieModel.id))
         .thenAnswer((inv) async => ResponseWrapper.Success(true));
 
-    expect(await deleteFavouriteMovieUsecase.call("0"), isA<Success>());
+    expect(
+        await deleteFavouriteMovieUsecase.call(movieModel.id), isA<Success>());
   });
 
   test("Check failure", () async {
     provideDummy(ResponseWrapper<dynamic>.Success([movieModel]));
     provideDummy(ResponseWrapper.Failure(Exception("Something went wrong")));
 
-    when(moviesRepository.deleteFavouriteMovie("0"))
+    when(moviesRepository.deleteFavouriteMovie(movieModel.id))
         .thenAnswer((inv) async => ResponseWrapper.Failure(Exception()));
 
-    expect(await deleteFavouriteMovieUsecase.call("0"), isA<Failure>());
+    expect(
+        await deleteFavouriteMovieUsecase.call(movieModel.id), isA<Failure>());
   });
 }

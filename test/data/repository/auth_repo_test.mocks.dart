@@ -137,6 +137,24 @@ class MockFirebaseAuthSource extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i5.ResponseWrapper<_i7.UserModel>>);
+
+  @override
+  _i4.Future<_i5.ResponseWrapper<_i7.UserModel>> checkLoggedInUser() =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #checkLoggedInUser,
+          [],
+        ),
+        returnValue: _i4.Future<_i5.ResponseWrapper<_i7.UserModel>>.value(
+            _i6.dummyValue<_i5.ResponseWrapper<_i7.UserModel>>(
+          this,
+          Invocation.method(
+            #checkLoggedInUser,
+            [],
+          ),
+        )),
+      ) as _i4.Future<_i5.ResponseWrapper<_i7.UserModel>>);
+
   @override
   _i4.Future<_i5.ResponseWrapper<bool>> logout() => (super.noSuchMethod(
         Invocation.method(
@@ -152,4 +170,40 @@ class MockFirebaseAuthSource extends _i1.Mock
           ),
         )),
       ) as _i4.Future<_i5.ResponseWrapper<bool>>);
+}
+
+/// A class which mocks [UserModel].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUserModel extends _i1.Mock implements _i7.UserModel {
+  MockUserModel() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  set email(String? _email) => super.noSuchMethod(
+        Invocation.setter(
+          #email,
+          _email,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  set password(String? _password) => super.noSuchMethod(
+        Invocation.setter(
+          #password,
+          _password,
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  Map<String, dynamic> toJson() => (super.noSuchMethod(
+        Invocation.method(
+          #toJson,
+          [],
+        ),
+        returnValue: <String, dynamic>{},
+      ) as Map<String, dynamic>);
 }
